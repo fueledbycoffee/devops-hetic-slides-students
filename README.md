@@ -33,7 +33,3 @@ Puis ouvrir l'URL affichée par le script.
 1. `Settings → Pages`
 2. Source : `main` / `(root)`
 3. Ouvrir `https://<user>.github.io/<repo>/slides/`
-
-## Note
-
-Les contenus formateur, démos, notes orateur et documents d'organisation ne sont pas inclus ici.
