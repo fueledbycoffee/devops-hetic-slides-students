@@ -1,35 +1,38 @@
-# DevOps Avancé — Support étudiant
+# DevOps & CI/CD — Coda — Support étudiant
 
-Ce dépôt contient uniquement les éléments destinés aux étudiants :
+Ce dépôt contient les éléments destinés aux étudiants Coda :
 
 - les slides du cours
 - les exercices
 - le starter code
 - les scripts pour lancer les slides en local
 
-## Contenu
+## Plan
 
-- **Jour 1** : CI/CD avancé, Terraform, Ansible
-- **Jour 2** : Docker avancé, Kubernetes, monitoring
-- **Jour 3** : DevSecOps, GitOps, patterns cloud-native
+- **J1** — Démarche DevOps
+- **J2** — Git collaboratif, workflow PR, première CI
+- **J3** — CI propre, Docker, GHCR
+- **J4** — Ouverture pipeline complet, audit LoueUneChevre.com
 
 ## Lancer les slides en local
 
-- Linux/macOS : `scripts/serve.sh`
-- Windows : `scripts/serve.bat`
+```bash
+scripts/serve.sh    # Linux / macOS
+scripts/serve.bat   # Windows
+```
 
 Puis ouvrir l'URL affichée par le script.
 
 ## Navigation
 
-- `←` `→` : slides précédente/suivante
+- `←` `→` : précédente / suivante
+- `1` `2` `3` `4` : accès direct J1 / J2 / J3 / J4
 - `T` : panneau TP
+- `N` : notes orateur
 - `F` : plein écran
 - `A` : mode aide
-- `1` `2` `3` : accès direct Jour 1/2/3
 
 ## GitHub Pages
 
-1. `Settings → Pages`
-2. Source : `main` / `(root)`
-3. Ouvrir `https://<user>.github.io/<repo>/slides/`
+1. Settings → Pages → Source : `main` / `(root)`
+2. Ouvrir `https://<user>.github.io/<repo>/slides/`

@@ -1,17 +1,20 @@
-# DevOps Demo App
+# Acme Demo App
 
-Application fil rouge de la formation.
+Starter technique de la formation Coda. Service Node.js minimal pour pratiquer PR, CI, Docker et GHCR sans écrire d'application métier.
 
 ## Endpoints
 
-- `/` : réponse JSON simple
-- `/health` : healthcheck HTTP pour Docker/Kubernetes
-- `/metrics` : métriques Prometheus en texte brut
+- `/` — réponse JSON simple
+- `/health` — healthcheck HTTP, utile pour les probes de plateforme (Render / Fly / etc.)
+- `/metrics` — métriques au format texte
 
 ## Commandes
 
 ```bash
+npm ci
+npm run lint
 npm test
+npm run build
 npm start
-docker build -t devops-app:1.0.0 .
+docker build -t devops-app:dev .
 ```

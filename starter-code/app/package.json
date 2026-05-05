@@ -5,6 +5,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "node src/index.js",
-    "test": "node --test"
+    "lint": "node --check src/index.js && node --check src/math.js",
+    "test": "node --test",
+    "build": "node -e \"console.log('No build step for this plain Node app')\""
   }
 }

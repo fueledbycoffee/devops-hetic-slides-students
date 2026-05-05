@@ -1,158 +1,129 @@
-# Mise en place de l'environnement
+# Setup environnement
 
 ## Objectif
-Installer et vérifier tous les outils nécessaires pour les 3 jours de formation.
+Avoir un poste opérationnel pour les 4 jours : Git, Node, Docker, compte GitHub, repo cloné, starter technique qui tourne.
 
 ## Pré-requis système
-- Un terminal (bash/zsh)
-- Git installé
-- Docker Desktop ou Docker Engine installé et lancé
-- Un compte GitHub
-- Sous Windows : **WSL2 + Ubuntu recommandé** pour tous les labs CLI
+- Un terminal (bash / zsh sur macOS/Linux, WSL2 + Ubuntu sur Windows)
+- Connexion internet
+- Compte GitHub actif
 
 ## Consignes
 
-### 1. Vérifier les outils de base
+### 1. Vérifier les outils
 
 ```bash
-# Git
-git --version
-# attendu : >= 2.30
-
-# Docker
-docker --version
-docker compose version
-# attendu : Docker >= 24, Compose >= 2.20
-
-# kubectl
-kubectl version --client
-# attendu : >= 1.28
-
-# Terraform
-terraform --version
-# attendu : >= 1.6
-
-# Ansible
-ansible --version
-# attendu : >= 2.15
-
-# Helm
-helm version --short
-# attendu : >= 3.14
-
-# ArgoCD CLI
-argocd version --client
-# attendu : client disponible
+git --version            # >= 2.30
+node --version           # >= 20
+npm --version            # >= 10
+docker --version         # >= 24
 ```
 
-### 2. Installer les outils manquants
+Si une commande manque, installer (instructions plus bas).
 
-#### macOS (Homebrew)
+### 2. Configurer Git
+
 ```bash
-brew install git terraform ansible kubectl helm argocd
+git config --global user.name "Prénom Nom"
+git config --global user.email "vous@exemple.fr"
+git config --global init.defaultBranch main
+git config --global pull.rebase true
+```
+
+### 3. Authentification GitHub (SSH recommandé)
+
+```bash
+# Générer une clé SSH si vous n'en avez pas
+ssh-keygen -t ed25519 -C "vous@exemple.fr"
+
+# Afficher la clé publique
+cat ~/.ssh/id_ed25519.pub
+
+# Copier puis ajouter sur GitHub : Settings → SSH and GPG keys → New SSH key
+
+# Tester
+ssh -T git@github.com
+# Réponse attendue : "Hi <user>! You've successfully authenticated..."
+```
+
+### 4. Cloner le repo de formation
+
+```bash
+git clone git@github.com:<votre-fork-ou-le-repo>/devops-coda-slides.git
+cd devops-coda-slides
+```
+
+### 5. Lancer le starter technique
+
+```bash
+cd starter-code/app
+npm ci
+npm test
+npm start &
+```
+
+Vérifier que les endpoints répondent :
+
+```bash
+curl http://localhost:3000/
+curl http://localhost:3000/health
+curl http://localhost:3000/metrics
+```
+
+Arrêter l'app avec `kill %1` ou `Ctrl+C`.
+
+### 6. Vérifier Docker
+
+```bash
+docker run --rm hello-world
+docker pull node:20-alpine
+```
+
+## Installation des outils manquants
+
+### macOS (Homebrew)
+```bash
+brew install git node
 brew install --cask docker
 ```
 
-#### Ubuntu/Debian
+### Ubuntu / Debian / WSL2
 ```bash
-# Terraform
-sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
-wget -O- https://apt.releases.hashicorp.com/gpg | \
-  gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
-  https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-  sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update && sudo apt install terraform
-
-# Ansible
-sudo apt install ansible
-
-# kubectl
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-
-# Helm
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
-# ArgoCD CLI
-curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-chmod +x argocd && sudo mv argocd /usr/local/bin/
+sudo apt update
+sudo apt install -y git curl
+# Node via nvm
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+source ~/.bashrc
+nvm install 20
+# Docker
+sudo apt install -y docker.io
+sudo usermod -aG docker $USER
+# se déconnecter / reconnecter pour activer le groupe
 ```
 
-#### Windows (avec Chocolatey)
-```powershell
-choco install git terraform kubectl kubernetes-helm kind
-wsl --install -d Ubuntu
-```
-
-Puis dans **Ubuntu via WSL2** :
-
-```bash
-sudo apt-get update
-sudo apt-get install -y ansible
-```
-
-> **Important** : utilisez Ansible depuis Linux/macOS/WSL2. Ne partez pas sur un control node Windows natif pour cette formation.
-
-### 3. Cluster Kubernetes local
-
-Nous utiliserons **minikube** ou **kind** pour le Jour 2 :
-
-```bash
-# Option A : minikube
-brew install minikube   # ou choco install minikube
-minikube start --cpus=2 --memory=4096
-
-# Option B : kind (Kubernetes IN Docker)
-brew install kind       # ou go install sigs.k8s.io/kind@latest
-kind create cluster --name devops-training
-```
-
-Pour les labs utilisant un **Ingress**, deux options :
-
-```bash
-# Minikube : addon intégré
-minikube addons enable ingress
-
-# Kind : rester sur port-forward tant qu'aucun ingress controller n'est installé
-```
-
-### 4. Vérification finale
-
-```bash
-# Docker fonctionne
-docker run --rm hello-world
-
-# kubectl connecté au cluster
-kubectl cluster-info
-kubectl get nodes
-
-# Terraform init fonctionne
-mkdir -p /tmp/tf-test && cd /tmp/tf-test
-echo 'output "hello" { value = "world" }' > main.tf
-terraform init && terraform apply -auto-approve
-cd - && rm -rf /tmp/tf-test
-```
-
-### 5. Cloner le repo de formation
-
-```bash
-git clone <url-du-repo> devops-training
-cd devops-training
-cp -R starter-code/devops-app app
-```
+### Windows natif
+Activer WSL2 + Ubuntu, puis suivre les instructions Ubuntu ci-dessus depuis le shell Ubuntu. Ne pas faire le cours depuis PowerShell.
 
 ## Livrable
-- Tous les outils installés et fonctionnels
-- Cluster K8s local opérationnel
-- Repo cloné
-- Starter applicatif copié dans `app/`
+- [ ] `git --version`, `node --version`, `docker --version` retournent une version récente
+- [ ] `ssh -T git@github.com` répond `Hi <user>!`
+- [ ] Repo cloné, `starter-code/app` testé en local, 3 endpoints (`/`, `/health`, `/metrics`) qui répondent
+- [ ] `docker run hello-world` réussit
 
 ## Aide
 
-Si Docker Desktop ne démarre pas :
-- macOS : vérifier les permissions dans Préférences Système > Sécurité
-- Windows : activer WSL2 et Hyper-V
-- Linux : ajouter votre user au groupe docker : `sudo usermod -aG docker $USER`
+**SSH `Permission denied (publickey)`** : la clé n'est pas chargée. `ssh-add ~/.ssh/id_ed25519` puis retenter. Sur macOS, ajouter dans `~/.ssh/config` :
+```
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+```
 
-Si minikube échoue, utiliser kind comme alternative (plus léger).
+**`docker: permission denied`** sur Linux : ajouter votre user au groupe `docker` (`sudo usermod -aG docker $USER`) puis se reconnecter.
+
+**Le port 3000 est occupé** : `lsof -i :3000` pour trouver le PID, `kill <PID>`. Ou lancer l'app sur un autre port : `PORT=3001 npm start`.
+
+**`npm ci` échoue** : supprimer `node_modules/` et `package-lock.json`, retenter `npm install`.
+
+**Windows + Docker Desktop** : vérifier que WSL2 integration est activé pour la distribution Ubuntu (Settings → Resources → WSL integration).

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DevOps Avancé — CI/CD, IaC, K8s & DevSecOps | Formation</title>
+  <title>DevOps & CI/CD — Coda | Formation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -619,9 +619,10 @@
 <header class="header">
   <div class="header-left">
     <span class="logo">DEVOPS</span>
-    <button class="day-btn active" data-day="1">J1 — CI/CD & IaC</button>
-    <button class="day-btn" data-day="2">J2 — K8s & Monitoring</button>
-    <button class="day-btn" data-day="3">J3 — DevSecOps</button>
+    <button class="day-btn active" data-day="1">J1 — Démarche DevOps</button>
+    <button class="day-btn" data-day="2">J2 — PR & CI</button>
+    <button class="day-btn" data-day="3">J3 — CI & Docker</button>
+    <button class="day-btn" data-day="4">J4 — Audit & ouverture</button>
   </div>
   <div class="header-right">
     <button class="ctrl-btn" id="tpBtn" title="Panneau TP (T)" disabled>TP</button>
@@ -629,6 +630,7 @@
     <button class="ctrl-btn" id="prevBtn" title="Slide précédente">&#9664;</button>
     <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">1</span></span>
     <button class="ctrl-btn" id="nextBtn" title="Slide suivante">&#9654;</button>
+    <button class="ctrl-btn" id="notesBtn" title="Notes orateur (N)">N</button>
     <button class="ctrl-btn" id="fullscreenBtn" title="Plein écran (F)">F</button>
     <button class="ctrl-btn" id="menuBtn" title="Menu slides">&#9776;</button>
   </div>
@@ -644,1168 +646,1549 @@
 <div class="slides-wrapper" id="slidesWrapper">
 
   <!-- ══════════════════════════════════════════════════════════ -->
-  <!-- JOUR 1 — CI/CD avancé & Infrastructure as Code            -->
+  <!-- JOUR 1 — DevOps : démarche & écosystème                   -->
   <!-- ══════════════════════════════════════════════════════════ -->
 
   <!-- J1.00 — Title -->
-  <div class="slide hero" data-day="1">
+  <div class="slide hero" data-day="1"
+       data-note="Tour de table rapide. Demander qui a déjà touché à GitHub Actions, qui a déjà mis du code en prod, qui n'a jamais eu d'incident. Objectif des 4 jours : comprendre la démarche DevOps, écrire des pipelines GitHub Actions, déployer en continu."
+       data-exercise="../exercises/00-environnement.md">
     <div class="slide-number">J1.00</div>
-    <div class="slide-title accent">DevOps Avancé</div>
-    <p class="slide-subtitle">CI/CD, Infrastructure as Code, Kubernetes, Monitoring & DevSecOps — 3 jours pour maîtriser le cycle complet</p>
+    <div style="display: flex; gap: 28px; margin-bottom: 28px; align-items: center; opacity: 0.95;">
+      <img src="https://cdn.simpleicons.org/git/f05032" alt="Git" width="64" height="64">
+      <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" width="64" height="64">
+      <img src="https://cdn.simpleicons.org/githubactions/2088ff" alt="GitHub Actions" width="64" height="64">
+      <img src="https://cdn.simpleicons.org/docker/2496ed" alt="Docker" width="64" height="64">
+    </div>
+    <div class="slide-title accent">DevOps &amp; CI/CD</div>
+    <p class="slide-subtitle">4 jours pour comprendre la démarche, écrire des pipelines GitHub Actions et déployer en continu</p>
     <div style="margin-top: 24px;">
-      <span class="tag cyan">CI/CD</span>
-      <span class="tag blue">Terraform</span>
-      <span class="tag emerald">Kubernetes</span>
-      <span class="tag amber">Prometheus</span>
-      <span class="tag rose">DevSecOps</span>
-      <span class="tag violet">GitOps</span>
+      <span class="tag cyan">Démarche DevOps</span>
+      <span class="tag blue">Git &amp; PR</span>
+      <span class="tag emerald">GitHub Actions</span>
+      <span class="tag amber">Déploiement</span>
     </div>
   </div>
 
-  <!-- J1.01 — Roadmap 3 jours -->
-  <div class="slide" data-day="1">
+  <!-- J1.01 — Roadmap 4 jours -->
+  <div class="slide" data-day="1"
+       data-note="Présenter le programme. Acme est la carte mentale du cours. J2 = PR + première CI. J3 = CI propre + Docker/GHCR. J4 = ouverture écosystème puis audit LoueUneChevre.com.">
     <div class="slide-number">J1.01</div>
     <div class="slide-title">Ce qu'on va voir ensemble</div>
-    <p class="slide-subtitle">3 jours, un fil rouge unique : faire évoluer une seule application jusqu'à la prod observable</p>
+    <p class="slide-subtitle">4 jours, un fil rouge unique : amener une app jusqu'à un déploiement automatique</p>
 
     <div class="three-cols" style="margin-top: 20px;">
       <div class="card cyan">
-        <h4>Jour 1 — CI/CD & IaC</h4>
+        <h4>J1 — Démarche DevOps</h4>
         <ul>
-          <li>Pipelines CI/CD multi-stages</li>
-          <li>GitHub Actions avancé</li>
-          <li>Terraform — infra déclarative</li>
-          <li>Ansible — config management</li>
+          <li>Avant DevOps : le mur</li>
+          <li>Les 3 voies, CALMS</li>
+          <li>Métriques DORA</li>
+          <li>Écosystème 2026</li>
         </ul>
-        <p style="margin-top:12px;"><span class="tag cyan">Automatiser</span></p>
+        <p style="margin-top:12px;"><span class="tag cyan">Comprendre</span></p>
+      </div>
+      <div class="card blue">
+        <h4>J2 — PR &amp; première CI</h4>
+        <ul>
+          <li>Rappel Git express</li>
+          <li>Anatomie d'une PR</li>
+          <li>Branch protection</li>
+          <li>GitHub Actions minimal</li>
+        </ul>
+        <p style="margin-top:12px;"><span class="tag blue">Collaborer</span></p>
       </div>
       <div class="card emerald">
-        <h4>Jour 2 — Conteneurs & Monitoring</h4>
+        <h4>J3 — CI &amp; Docker</h4>
         <ul>
-          <li>Docker multi-stage & sécurité</li>
-          <li>Kubernetes — orchestration</li>
-          <li>Helm & Kustomize</li>
-          <li>Prometheus & Grafana</li>
+          <li>Matrix &amp; cache</li>
+          <li>Status checks bloquants</li>
+          <li>Build Docker</li>
+          <li>Push GHCR</li>
         </ul>
-        <p style="margin-top:12px;"><span class="tag emerald">Orchestrer & Observer</span></p>
+        <p style="margin-top:12px;"><span class="tag emerald">Automatiser</span></p>
       </div>
-      <div class="card violet">
-        <h4>Jour 3 — DevSecOps & Cloud</h4>
+    </div>
+
+    <div style="margin-top: 16px; display: flex; justify-content: center;">
+      <div class="card amber" style="max-width: 480px;">
+        <h4>J4 — Ouverture &amp; évaluation</h4>
         <ul>
-          <li>Scan de sécurité (Trivy, OPA)</li>
-          <li>GitOps avec ArgoCD</li>
-          <li>Patterns cloud-native</li>
-          <li>Projet final — pipeline E2E</li>
+          <li>Secrets, environments, approvals</li>
+          <li>Terraform, Kubernetes, Prometheus</li>
+          <li>Supply chain</li>
+          <li>Audit LoueUneChevre.com</li>
         </ul>
-        <p style="margin-top:12px;"><span class="tag violet">Sécuriser & Livrer</span></p>
+        <p style="margin-top:12px;"><span class="tag amber">Auditer</span></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- J1.02 — Avant DevOps -->
+  <div class="slide" data-day="1"
+       data-note="Demander aux étudiants : avez-vous déjà vu un dev jeter du code par-dessus la rambarde aux ops ? Le 'wall of confusion' est devenu un mème, mais c'était la réalité avant 2008.">
+    <div class="slide-number">J1.02</div>
+    <div class="slide-title">Avant DevOps : le mur de la confusion</div>
+    <p class="slide-subtitle">Deux équipes, deux objectifs opposés, et un mur entre les deux</p>
+
+    <div class="diagram" style="margin: 32px 0;">
+      <div class="node blue">Dev<br><span style="font-size:0.7em; opacity:0.7">livrer vite</span></div>
+      <div class="arrow">→</div>
+      <div class="node rose">🧱 mur 🧱</div>
+      <div class="arrow">→</div>
+      <div class="node emerald">Ops<br><span style="font-size:0.7em; opacity:0.7">stabilité</span></div>
+    </div>
+
+    <div class="two-cols" style="margin-top: 24px;">
+      <div class="card blue">
+        <h4>Côté Dev</h4>
+        <ul>
+          <li>Pression métier : sortir des features</li>
+          <li>"Ça marche sur ma machine"</li>
+          <li>Ne connaît pas la prod</li>
+        </ul>
+      </div>
+      <div class="card emerald">
+        <h4>Côté Ops</h4>
+        <ul>
+          <li>Pression : pas de downtime</li>
+          <li>Refuse les changements</li>
+          <li>Découvre le code à minuit</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box danger" style="margin-top: 20px;">
+      <strong>Conséquences</strong> : déploiements rares (mensuels, trimestriels), mode nuit/week-end, blame culture, time-to-market médiocre.
+    </div>
+  </div>
+
+  <!-- J1.03 — Naissance de DevOps -->
+  <div class="slide" data-day="1"
+       data-note="Les 3 dates clés. 2008 : Patrick Debois en a marre, lance le mouvement. 2009 : la conférence Velocity, talk Allspaw/Hammond '10+ deploys per day at Flickr', tout le monde dit 'wait, c'est possible ?'. 2013 : Phoenix Project devient la bible.">
+    <div class="slide-number">J1.03</div>
+    <div class="slide-title">Naissance du mouvement DevOps</div>
+    <p class="slide-subtitle">3 moments clés entre 2008 et 2013</p>
+
+    <div class="three-cols" style="margin-top: 24px;">
+      <div class="card cyan">
+        <h4>2008 — Patrick Debois</h4>
+        <p>Belge, sysadmin, agile-skeptic. Frustré du mur Dev/Ops. Il rebalance ça à la conf <em>Agile</em> de Toronto.</p>
+        <p style="margin-top:8px;"><span class="tag cyan">L'étincelle</span></p>
+      </div>
+      <div class="card blue">
+        <h4>2009 — Velocity Conference</h4>
+        <p>Allspaw &amp; Hammond (Flickr) : <strong>"10+ deploys per day"</strong>. La salle réalise que c'est possible.</p>
+        <p style="margin-top:8px;"><span class="tag blue">La preuve</span></p>
+      </div>
+      <div class="card emerald">
+        <h4>2013 — Phoenix Project</h4>
+        <p>Roman de Gene Kim. Vulgarise les principes : flux, feedback, apprentissage. Devient la bible.</p>
+        <p style="margin-top:8px;"><span class="tag emerald">La doctrine</span></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- J1.04 — C'est quoi exactement DevOps -->
+  <div class="slide" data-day="1"
+       data-note="Hammer this : DevOps n'est PAS un outil. Pas un job title. C'est une démarche. Les outils en sont la conséquence, pas la cause. Insister.">
+    <div class="slide-number">J1.04</div>
+    <div class="slide-title">C'est quoi exactement DevOps ?</div>
+    <p class="slide-subtitle">Pas un outil, pas un job. Une démarche.</p>
+
+    <div class="two-cols" style="margin-top: 24px;">
+      <div>
+        <h3>Définition courte</h3>
+        <p>DevOps est l'<strong>ensemble des pratiques culturelles, organisationnelles et techniques</strong> qui visent à raccourcir le cycle de livraison logicielle, tout en augmentant la qualité.</p>
+
+        <div class="info-box warning" style="margin-top: 16px;">
+          <strong>Ce n'est PAS</strong> :<br>
+          • Un poste ("DevOps engineer" ≈ raccourci marketing)<br>
+          • Un outil ("on fait du DevOps avec Jenkins")<br>
+          • Du sysadmin renommé
+        </div>
+      </div>
+      <div>
+        <h3>Les 3 piliers</h3>
+        <div class="card cyan" style="margin-bottom: 12px;">
+          <h4>Culture</h4>
+          <p>Responsabilité partagée Dev/Ops, ownership end-to-end, blameless.</p>
+        </div>
+        <div class="card emerald" style="margin-bottom: 12px;">
+          <h4>Automatisation</h4>
+          <p>CI/CD, IaC, tests, monitoring. Tout ce qui est répétitif est code.</p>
+        </div>
+        <div class="card amber">
+          <h4>Mesure</h4>
+          <p>On pilote par les métriques (DORA), pas par l'opinion.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- J1.05 — Les 3 voies -->
+  <div class="slide" data-day="1"
+       data-note="Phoenix Project formalise ces 3 voies. Les utiliser comme grille de lecture quand on observe une orga.">
+    <div class="slide-number">J1.05</div>
+    <div class="slide-title">Les 3 voies (Phoenix Project)</div>
+    <p class="slide-subtitle">Le cadre conceptuel qui structure DevOps</p>
+
+    <div class="three-cols" style="margin-top: 24px;">
+      <div class="card cyan">
+        <h4>1. Le flux</h4>
+        <p>Du code vers la prod, sans accroc.</p>
+        <ul style="margin-top:8px;">
+          <li>Petits batchs</li>
+          <li>Réduire le WIP</li>
+          <li>Automatiser le pipeline</li>
+        </ul>
+        <p style="margin-top:8px;"><em>Dev → Ops</em></p>
+      </div>
+      <div class="card blue">
+        <h4>2. Le feedback</h4>
+        <p>De la prod vers le dev, vite.</p>
+        <ul style="margin-top:8px;">
+          <li>Monitoring, alertes</li>
+          <li>Tests à toutes les étapes</li>
+          <li>Boucle courte</li>
+        </ul>
+        <p style="margin-top:8px;"><em>Ops → Dev</em></p>
+      </div>
+      <div class="card emerald">
+        <h4>3. L'apprentissage continu</h4>
+        <p>Expérimenter, accepter l'échec.</p>
+        <ul style="margin-top:8px;">
+          <li>Post-mortems blameless</li>
+          <li>Game days, chaos eng</li>
+          <li>Partage des apprentissages</li>
+        </ul>
+        <p style="margin-top:8px;"><em>Culture</em></p>
       </div>
     </div>
 
     <div class="info-box tip" style="margin-top: 20px;">
-      <strong>Philosophie</strong> : chaque concept est mis en pratique immédiatement. Pas de théorie sans exercice. On apprend en faisant.
-    </div>
-    <div class="info-box success" style="margin-top: 12px;">
-      <strong>Socle</strong> : une app unique avec <code>/</code>, <code>/health</code> et <code>/metrics</code>, puis une montée en puissance progressive jusqu'à GitOps.<br>
-      <strong>Stretch</strong> : multi-cloud, OPA avancé, Kustomize poussé, service mesh si le rythme le permet.
+      Une orga DevOps mature applique les <strong>trois</strong>. Beaucoup s'arrêtent à la voie 1 (automatisation), c'est insuffisant.
     </div>
   </div>
 
-  <!-- J1.02 — La boîte à outils -->
+  <!-- J1.06 — CALMS -->
   <div class="slide" data-day="1"
-       data-exercise="../exercises/00-environnement.md">
-    <div class="slide-number">J1.02</div>
-    <div class="slide-title">La boîte à outils</div>
-    <p class="slide-subtitle">Les outils qu'on va utiliser pendant ces 3 jours</p>
+       data-note="CALMS = acronyme qui résume la culture DevOps. Insister sur Sharing : sans partage entre équipes, l'auto remonte les silos.">
+    <div class="slide-number">J1.06</div>
+    <div class="slide-title">Culture DevOps : CALMS</div>
+    <p class="slide-subtitle">Le checklist culturel d'une orga DevOps</p>
+
+    <table style="margin-top: 16px;">
+      <tr><th>Lettre</th><th>Pilier</th><th>Concrètement</th></tr>
+      <tr><td><strong>C</strong></td><td>Culture</td><td>Ownership partagé, blameless, feedback ouvert</td></tr>
+      <tr><td><strong>A</strong></td><td>Automation</td><td>Tout ce qui est répété est codé : tests, build, deploy, infra</td></tr>
+      <tr><td><strong>L</strong></td><td>Lean</td><td>Petits batchs, supprimer le WIP, réduire le gaspillage</td></tr>
+      <tr><td><strong>M</strong></td><td>Measurement</td><td>Métriques sur tout : DORA, SLO, business KPI</td></tr>
+      <tr><td><strong>S</strong></td><td>Sharing</td><td>Documentation, pair programming, post-mortems publics</td></tr>
+    </table>
+
+    <div class="info-box warning" style="margin-top: 16px;">
+      <strong>Piège classique</strong> : focus sur le A (Automation) et oublier C, L, M, S. Résultat : pipeline magnifique mais silos intacts.
+    </div>
+  </div>
+
+  <!-- J1.07 — Métriques DORA -->
+  <div class="slide" data-day="1"
+       data-note="DORA = DevOps Research and Assessment, racheté par Google en 2018. Rapport annuel 'State of DevOps'. Les 4 métriques sont le standard de l'industrie.">
+    <div class="slide-number">J1.07</div>
+    <div class="slide-title">Métriques DORA</div>
+    <p class="slide-subtitle">Les 4 métriques qui mesurent vraiment la performance d'une équipe DevOps</p>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div class="card cyan">
+        <h4>Deployment Frequency</h4>
+        <p>À quelle fréquence on déploie en prod ?</p>
+        <p style="margin-top:8px; font-size:0.85em; color: var(--text-dim);">Elite : plusieurs fois/jour — Low : &lt; 1/mois</p>
+      </div>
+      <div class="card blue">
+        <h4>Lead Time for Changes</h4>
+        <p>Temps entre commit et déploiement en prod.</p>
+        <p style="margin-top:8px; font-size:0.85em; color: var(--text-dim);">Elite : &lt; 1h — Low : &gt; 6 mois</p>
+      </div>
+      <div class="card emerald">
+        <h4>MTTR</h4>
+        <p>Mean Time To Recovery : temps de retour à la normale après incident.</p>
+        <p style="margin-top:8px; font-size:0.85em; color: var(--text-dim);">Elite : &lt; 1h — Low : &gt; 1 semaine</p>
+      </div>
+      <div class="card rose">
+        <h4>Change Failure Rate</h4>
+        <p>% de déploiements qui causent un incident.</p>
+        <p style="margin-top:8px; font-size:0.85em; color: var(--text-dim);">Elite : 0–15 % — Low : &gt; 30 %</p>
+      </div>
+    </div>
+
+    <div class="info-box success" style="margin-top: 16px;">
+      <strong>Insight DORA</strong> : déployer plus souvent diminue le risque (petits batchs = petits failures faciles à fixer). Contre-intuitif mais validé chaque année.
+    </div>
+  </div>
+
+  <!-- J1.08 — Panorama écosystème -->
+  <div class="slide" data-day="1"
+       data-note="Tour de l'écosystème en 2026. Pas besoin de tout maîtriser. Identifier les briques. On ne va voir en profondeur que GitHub Actions et Docker.">
+    <div class="slide-number">J1.08</div>
+    <div class="slide-title">Panorama écosystème 2026</div>
+    <p class="slide-subtitle">Les briques qu'on rencontre dans les pipelines modernes</p>
 
     <div class="three-cols" style="margin-top: 16px;">
       <div class="card cyan">
-        <h4>GitHub Actions</h4>
-        <p>CI/CD intégré à GitHub. Workflows YAML, matrix builds, environments protégés.</p>
-        <p style="margin-top:8px;"><span class="tag cyan">CI/CD</span></p>
+        <h4>Versionning</h4>
+        <p>Git + GitHub / GitLab / Bitbucket</p>
+        <div style="display:flex; gap:14px; margin-top:10px; align-items:center;">
+          <img src="https://cdn.simpleicons.org/git/f05032" alt="Git" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/gitlab/fc6d26" alt="GitLab" width="26" height="26">
+        </div>
+        <p style="margin-top:10px;"><span class="tag cyan">J2</span></p>
       </div>
       <div class="card blue">
-        <h4>Terraform</h4>
-        <p>Infrastructure as Code déclarative. Providers AWS, GCP, Azure, Docker. State + plan/apply.</p>
-        <p style="margin-top:8px;"><span class="tag blue">IaC</span></p>
+        <h4>CI/CD</h4>
+        <p>GitHub Actions, GitLab CI, Jenkins, CircleCI</p>
+        <div style="display:flex; gap:14px; margin-top:10px; align-items:center;">
+          <img src="https://cdn.simpleicons.org/githubactions/2088ff" alt="GitHub Actions" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/jenkins/d24939" alt="Jenkins" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/circleci/ffffff" alt="CircleCI" width="26" height="26">
+        </div>
+        <p style="margin-top:10px;"><span class="tag blue">J2 &amp; J3</span></p>
       </div>
-      <div class="card violet">
-        <h4>Ansible</h4>
-        <p>Configuration management agentless. Playbooks YAML, roles, idempotence via SSH.</p>
-        <p style="margin-top:8px;"><span class="tag violet">Config</span></p>
+      <div class="card emerald">
+        <h4>Conteneurs</h4>
+        <p>Docker, Podman + registries (GHCR, Docker Hub)</p>
+        <div style="display:flex; gap:14px; margin-top:10px; align-items:center;">
+          <img src="https://cdn.simpleicons.org/docker/2496ed" alt="Docker" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/podman/892ca0" alt="Podman" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/github/ffffff" alt="GHCR" width="26" height="26">
+        </div>
+        <p style="margin-top:10px;"><span class="tag emerald">J3</span></p>
       </div>
     </div>
-    <div class="three-cols" style="margin-top: 12px;">
-      <div class="card emerald">
-        <h4>Docker & Kubernetes</h4>
-        <p>Conteneurisation + orchestration. Multi-stage builds, Pods, Deployments, Services, Helm.</p>
-        <p style="margin-top:8px;"><span class="tag emerald">Orchestration</span></p>
-      </div>
+
+    <div class="three-cols" style="margin-top: 16px;">
       <div class="card amber">
-        <h4>Prometheus & Grafana</h4>
-        <p>Collecte de métriques time-series + visualisation. PromQL, alerting, dashboards as code.</p>
-        <p style="margin-top:8px;"><span class="tag amber">Monitoring</span></p>
+        <h4>Orchestration</h4>
+        <p>Kubernetes (K8s), Nomad, ECS, Cloud Run</p>
+        <div style="display:flex; gap:14px; margin-top:10px; align-items:center;">
+          <img src="https://cdn.simpleicons.org/kubernetes/326ce5" alt="Kubernetes" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/nomad/00ca8e" alt="Nomad" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/googlecloud/4285f4" alt="Cloud Run" width="26" height="26">
+        </div>
+        <p style="margin-top:10px;"><span class="tag amber">J4 matin</span></p>
+      </div>
+      <div class="card violet">
+        <h4>IaC</h4>
+        <p>Terraform / OpenTofu, Pulumi, Ansible</p>
+        <div style="display:flex; gap:14px; margin-top:10px; align-items:center;">
+          <img src="https://cdn.simpleicons.org/terraform/7b42bc" alt="Terraform" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/pulumi/8a3391" alt="Pulumi" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/ansible/ee0000" alt="Ansible" width="26" height="26">
+        </div>
+        <p style="margin-top:10px;"><span class="tag violet">J4 matin</span></p>
       </div>
       <div class="card rose">
-        <h4>Trivy & ArgoCD</h4>
-        <p>Scan de vulnérabilités (images, deps, IaC) + déploiement GitOps déclaratif sur K8s.</p>
-        <p style="margin-top:8px;"><span class="tag rose">Sécu & GitOps</span></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- J1.03 — État de l'art DevOps -->
-  <div class="slide" data-day="1"
-       data-exercise="../exercises/00-environnement.md">
-    <div class="slide-number">J1.03</div>
-    <div class="slide-title">État de l'art DevOps 2026</div>
-    <div class="two-cols">
-      <div>
-        <h3>Le mouvement DevOps</h3>
-        <ul>
-          <li><strong>Culture</strong> — collaboration Dev + Ops, boucles de feedback</li>
-          <li><strong>Automatisation</strong> — tout ce qui peut être automatisé doit l'être</li>
-          <li><strong>Mesure</strong> — DORA metrics : fréquence de déploiement, lead time, MTTR, taux d'échec</li>
-          <li><strong>Partage</strong> — documentation, post-mortems, retrospectives</li>
-        </ul>
-        <div class="info-box tip">
-          <strong>CALMS</strong> : Culture, Automation, Lean, Measurement, Sharing
+        <h4>Observabilité</h4>
+        <p>Prometheus, Grafana, Loki, OpenTelemetry</p>
+        <div style="display:flex; gap:14px; margin-top:10px; align-items:center;">
+          <img src="https://cdn.simpleicons.org/prometheus/e6522c" alt="Prometheus" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/grafana/f46800" alt="Grafana" width="26" height="26">
+          <img src="https://cdn.simpleicons.org/opentelemetry/ffffff" alt="OpenTelemetry" width="26" height="26">
         </div>
+        <p style="margin-top:10px;"><span class="tag rose">J4 matin</span></p>
       </div>
-      <div>
-        <h3>Tendances 2026</h3>
-        <ul>
-          <li><em>Platform Engineering</em> — portails développeur (Backstage)</li>
-          <li><em>GitOps</em> — Git comme source de vérité</li>
-          <li><em>DevSecOps</em> — sécurité shift-left</li>
-          <li><em>FinOps</em> — optimisation des coûts cloud</li>
-          <li><em>AI/ML Ops</em> — intégration de l'IA dans les pipelines</li>
-        </ul>
-      </div>
+    </div>
+
+    <div class="info-box tip" style="margin-top: 16px;">
+      Pendant ces 4 jours on couvre <strong>Git/GitHub, GitHub Actions et Docker</strong>. Le reste est ouverture pour la suite de votre parcours.
     </div>
   </div>
 
-  <!-- J1.04 — Pipeline Overview -->
-  <div class="slide" data-day="1">
-    <div class="slide-number">J1.04</div>
-    <div class="slide-title">Anatomie d'un pipeline CI/CD</div>
-    <p class="slide-subtitle">Du commit au déploiement : chaque étape est un garde-fou</p>
-
-    <div class="pipeline">
-      <div class="stage cyan">Commit<span class="stage-label">Git push</span></div>
-      <div class="connector"></div>
-      <div class="stage blue">Build<span class="stage-label">Compiler / Docker</span></div>
-      <div class="connector"></div>
-      <div class="stage emerald">Test<span class="stage-label">Unit / Integ</span></div>
-      <div class="connector"></div>
-      <div class="stage amber">Scan<span class="stage-label">SAST / Images</span></div>
-      <div class="connector"></div>
-      <div class="stage rose">Deploy<span class="stage-label">Staging → Prod</span></div>
-    </div>
-
-    <div class="two-cols" style="margin-top: 32px;">
-      <div class="card cyan">
-        <h4>CI — Intégration Continue</h4>
-        <p>Build + Test automatiques à chaque commit. Feedback en minutes, pas en jours.</p>
-      </div>
-      <div class="card emerald">
-        <h4>CD — Livraison / Déploiement Continu</h4>
-        <p><strong>Continuous Delivery</strong> = prêt à déployer. <strong>Continuous Deployment</strong> = déploiement automatique en prod.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- J1.03 — Pipeline multi-stages -->
+  <!-- J1.09 — TP J1 -->
   <div class="slide" data-day="1"
-       data-exercise="../exercises/01-pipeline-cicd.md">
-    <div class="slide-number">J1.05</div>
-    <div class="slide-title">Pipelines multi-stages</div>
-    <div class="two-cols">
-      <div>
-        <h3>Principes avancés</h3>
-        <ul>
-          <li><strong>Parallélisme</strong> — exécuter les jobs indépendants en parallèle</li>
-          <li><strong>Cache</strong> — réutiliser les dépendances entre runs</li>
-          <li><strong>Matrix builds</strong> — tester sur plusieurs versions/OS</li>
-          <li><strong>Artefacts</strong> — passer des résultats entre stages</li>
-          <li><strong>Environnements</strong> — staging, production avec approval gates</li>
-        </ul>
-        <div class="info-box tip">
-          <strong>Règle d'or</strong> : sur une pull request, viser un feedback en moins de 10 minutes. Au-delà, optimiser.
-        </div>
-      </div>
-      <div>
-        <h3>Architecture type</h3>
-        <pre><code>jobs:
-  test:        # Parallèle sur 3 versions Node
-    matrix: [18, 20, 22]
-    cache: npm
-
-  build:       # Dépend de test
-    needs: test
-    docker: buildx + cache GHA
-
-  security:    # Dépend de build
-    needs: build
-    trivy: image scan
-
-  deploy:      # Dépend de build + security
-    needs: [build, security]
-    environment: production</code></pre>
-      </div>
-    </div>
-  </div>
-
-  <!-- J1.04 — GitHub Actions avancé -->
-  <div class="slide" data-day="1"
-       data-exercise="../exercises/02-github-actions.md">
-    <div class="slide-number">J1.06</div>
-    <div class="slide-title">GitHub Actions avancé</div>
-    <div class="two-cols">
-      <div>
-        <h3>Workflows réutilisables</h3>
-        <pre><code># workflow appelé via :
-on:
-  workflow_call:
-    inputs:
-      image-name:
-        type: string
-        required: true
-    secrets:
-      registry-password:
-        required: true</code></pre>
-        <h3>Actions composites</h3>
-        <p>Regrouper des steps communs dans une action locale <code>.github/actions/</code></p>
-      </div>
-      <div>
-        <h3>Environments & Secrets</h3>
-        <table>
-          <tr><th>Environnement</th><th>Protection</th></tr>
-          <tr><td><code>staging</code></td><td>Déploiement auto</td></tr>
-          <tr><td><code>production</code></td><td>Review + timer 5 min</td></tr>
-        </table>
-        <div class="info-box warning">
-          <strong>Secrets</strong> : ne JAMAIS les mettre dans le code. Utiliser <code>${{ secrets.X }}</code> — GitHub les masque automatiquement dans les logs.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J1.05 — Introduction Terraform -->
-  <div class="slide" data-day="1">
-    <div class="slide-number">J1.07</div>
-    <div class="slide-title">Infrastructure as Code — Terraform</div>
-    <p class="slide-subtitle">Décrire, versionner et automatiser votre infrastructure</p>
-
-    <div class="diagram">
-      <div class="node cyan">Code HCL</div>
-      <span class="arrow">→</span>
-      <div class="node blue">terraform plan</div>
-      <span class="arrow">→</span>
-      <div class="node emerald">terraform apply</div>
-      <span class="arrow">→</span>
-      <div class="node amber active">Infrastructure réelle</div>
-    </div>
-
-    <div class="three-cols" style="margin-top: 24px;">
-      <div class="card cyan">
-        <h4>Déclaratif</h4>
-        <p>On décrit <strong>l'état souhaité</strong>. Terraform calcule les actions nécessaires.</p>
-      </div>
-      <div class="card blue">
-        <h4>Providers</h4>
-        <p>AWS, GCP, Azure, Docker, GitHub... +3000 providers disponibles.</p>
-      </div>
-      <div class="card amber">
-        <h4>State</h4>
-        <p>Le <strong>state file</strong> fait le lien entre le code et la réalité. Critique pour le plan/apply.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- J1.06 — Terraform HCL -->
-  <div class="slide" data-day="1"
-       data-exercise="../exercises/03-terraform-init.md">
-    <div class="slide-number">J1.08</div>
-    <div class="slide-title">Terraform — Syntaxe HCL</div>
-    <div class="two-cols">
-      <div>
-        <h3>Blocs fondamentaux</h3>
-        <pre><code># Provider
-provider "docker" {}
-
-# Resource
-resource "docker_container" "web" {
-  name  = "my-app"
-  image = docker_image.nginx.image_id
-  ports {
-    internal = 80
-    external = 8080
-  }
-}
-
-# Variable
-variable "environment" {
-  type    = string
-  default = "dev"
-}
-
-# Output
-output "url" {
-  value = "http://localhost:8080"
-}</code></pre>
-      </div>
-      <div>
-        <h3>Cycle de vie</h3>
-        <div class="terminal">
-          <span class="prompt">$</span> terraform init<br>
-          <span class="output">Initializing provider plugins...</span><br><br>
-          <span class="prompt">$</span> terraform plan<br>
-          <span class="output">Plan: 3 to add, 0 to change, 0 to destroy</span><br><br>
-          <span class="prompt">$</span> terraform apply<br>
-          <span class="output">Apply complete! Resources: 3 added</span><br><br>
-          <span class="prompt">$</span> terraform destroy<br>
-          <span class="output">Destroy complete! Resources: 3 destroyed</span>
-        </div>
-        <div class="info-box success">
-          <strong>Idempotent</strong> : relancer <code>apply</code> sans changement → aucune action
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J1.07 — Terraform Modules -->
-  <div class="slide" data-day="1"
-       data-exercise="../exercises/04-terraform-modules.md">
+       data-note="Atelier en groupes de 3. Distribuer le cas. 30 min d'analyse, 15 min de restitution."
+       data-exercise="../exercises/01-ateliers-j1.md">
     <div class="slide-number">J1.09</div>
-    <div class="slide-title">Terraform — Modules & Remote State</div>
-    <div class="two-cols">
-      <div>
-        <h3>Modules réutilisables</h3>
-        <pre><code>modules/
-  webapp/
-    main.tf       # Resources
-    variables.tf  # Inputs
-    outputs.tf    # Outputs
+    <div class="slide-title">TP : Audit DevOps</div>
+    <p class="slide-subtitle">Diagnostic d'une orga fictive — par groupes de 3, 45 min</p>
 
-# Utilisation
-module "webapp" {
-  source      = "./modules/webapp"
-  app_name    = "my-app"
-  environment = "dev"
-  replicas    = 3
-}</code></pre>
-        <p>Un module = un composant réutilisable avec une interface claire (variables → outputs).</p>
-      </div>
-      <div>
-        <h3>Remote State</h3>
-        <pre><code>terraform {
-  backend "s3" {
-    bucket = "my-tf-state"
-    key    = "prod/terraform.tfstate"
-    region = "eu-west-1"
-    encrypt = true
-    dynamodb_table = "tf-lock"
-  }
-}</code></pre>
-        <div class="info-box warning">
-          <strong>State = données sensibles</strong>. Toujours chiffrer, jamais dans Git. Utiliser un backend distant avec locking (S3 + DynamoDB, GCS, etc.).
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J1.08 — Ansible Introduction -->
-  <div class="slide" data-day="1">
-    <div class="slide-number">J1.10</div>
-    <div class="slide-title">Ansible — Configuration Management</div>
-    <p class="slide-subtitle">Automatiser la configuration de vos serveurs de manière idempotente</p>
-
-    <div class="diagram">
-      <div class="node cyan">Inventaire</div>
-      <span class="arrow">→</span>
-      <div class="node blue">Playbook</div>
-      <span class="arrow">→</span>
-      <div class="node emerald">SSH</div>
-      <span class="arrow">→</span>
-      <div class="node amber active">Serveurs configurés</div>
+    <div class="info-box warning" style="margin-top: 16px;">
+      <strong>Cas Acme SaaS</strong> — 30 devs, B2B. Déploient tous les 3 mois (week-end). 1 incident sur 3 déploiements. Ops et Dev se renvoient la balle. Pas de tests automatisés. Build manuel par un sénior.
     </div>
 
-    <div class="three-cols" style="margin-top: 24px;">
+    <div class="two-cols" style="margin-top: 16px;">
       <div class="card cyan">
-        <h4>Agentless</h4>
-        <p>Rien à installer sur les cibles. Connexion via SSH ou Docker.</p>
+        <h4>À faire</h4>
+        <ol>
+          <li>Identifier les frictions (3 voies, CALMS)</li>
+          <li>Estimer leur niveau DORA actuel</li>
+          <li>Proposer 3 actions prioritaires (3 / 6 / 12 mois)</li>
+        </ol>
       </div>
       <div class="card emerald">
-        <h4>Idempotent</h4>
-        <p>Relancer 10 fois le playbook → même résultat. <code>changed=0</code> au 2e run.</p>
+        <h4>Livrable</h4>
+        <ul>
+          <li>1 slide par équipe</li>
+          <li>5 min de restitution</li>
+          <li>Discussion croisée</li>
+        </ul>
       </div>
-      <div class="card violet">
-        <h4>Roles</h4>
-        <p>Organiser en composants réutilisables : tasks, handlers, templates, vars.</p>
-      </div>
+    </div>
+
+    <div class="info-box tip" style="margin-top: 16px;">
+      <strong>Conseil</strong> : ne proposez pas "installer Jenkins". Proposez quels comportements vous voulez voir changer, et quelles métriques vous voulez bouger.
     </div>
   </div>
 
-  <!-- J1.09 — Ansible Playbooks -->
+  <!-- J1.10 — Pipeline cible Acme -->
   <div class="slide" data-day="1"
-       data-exercise="../exercises/05-ansible-playbook.md">
+       data-note="Slide repère. Revenir dessus à chaque fin de bloc : PR, CI, Docker, GHCR, déploiement, monitoring. Le cours construit cette cible par morceaux.">
+    <div class="slide-number">J1.10</div>
+    <div class="slide-title">Acme : le pipeline cible</div>
+    <p class="slide-subtitle">Le cas Acme sert de carte pendant les 4 jours</p>
+
+    <div class="info-box danger" style="margin-top: 16px;">
+      <strong>Aujourd'hui</strong> : push direct → tests manuels → build local → déploiement manuel → incident flou.
+    </div>
+
+    <div class="pipeline" style="margin-top: 24px; flex-wrap: wrap;">
+      <div class="stage cyan">Issue<span class="stage-label">travail visible</span></div>
+      <div class="connector"></div>
+      <div class="stage cyan">Branche<span class="stage-label">isolation</span></div>
+      <div class="connector"></div>
+      <div class="stage blue">PR<span class="stage-label">discussion</span></div>
+      <div class="connector"></div>
+      <div class="stage blue">Review<span class="stage-label">humain</span></div>
+    </div>
+    <div class="pipeline" style="margin-top: 12px; flex-wrap: wrap;">
+      <div class="stage emerald">CI<span class="stage-label">automate</span></div>
+      <div class="connector"></div>
+      <div class="stage emerald">Docker<span class="stage-label">artefact</span></div>
+      <div class="connector"></div>
+      <div class="stage amber">GHCR<span class="stage-label">registry</span></div>
+      <div class="connector"></div>
+      <div class="stage rose">Prod<span class="stage-label">smoke test</span></div>
+    </div>
+
+    <div class="info-box success" style="margin-top: 20px;">
+      <strong>Rituel du cours</strong> : on imagine, on met en place, on teste, puis on coche une brique.
+    </div>
+  </div>
+
+  <!-- J1.11 — Rétro J1 -->
+  <div class="slide hero" data-day="1"
+       data-note="Rétro courte : qu'est-ce qui a été clair, qu'est-ce qui reste flou. Ouverture J2 : vous avez compris pourquoi DevOps existe, demain on attaque la première brique : comment du code arrive en prod proprement, c'est-à-dire le workflow Git.">
     <div class="slide-number">J1.11</div>
-    <div class="slide-title">Ansible — Playbooks & Roles</div>
-    <div class="two-cols">
-      <div>
-        <h3>Playbook type</h3>
-        <pre><code>---
-- name: Configurer le serveur web
-  hosts: webservers
-  become: true
+    <div class="slide-title accent">Rétro Jour 1</div>
+    <p class="slide-subtitle">Vous avez le pourquoi. Demain : le comment commence.</p>
 
-  handlers:
-    - name: restart nginx
-      service:
-        name: nginx
-        state: restarted
-
-  tasks:
-    - name: Installer Nginx
-      apt:
-        name: nginx
-        state: present
-
-    - name: Déployer la config
-      template:
-        src: nginx.conf.j2
-        dest: /etc/nginx/nginx.conf
-      notify: restart nginx</code></pre>
-      </div>
-      <div>
-        <h3>Structure en roles</h3>
-        <pre><code>roles/
-  nginx/
-    tasks/main.yml
-    handlers/main.yml
-    templates/nginx.conf.j2
-    defaults/main.yml
-
-# Playbook principal
-- hosts: webservers
-  roles:
-    - base
-    - nginx</code></pre>
-        <div class="info-box tip">
-          <strong>Terraform + Ansible</strong> = combo gagnant.<br>
-          Terraform provisionne l'infra → Ansible configure les machines.
-        </div>
-      </div>
+    <div style="margin-top: 24px;">
+      <span class="tag cyan">3 voies</span>
+      <span class="tag blue">CALMS</span>
+      <span class="tag emerald">DORA</span>
+      <span class="tag amber">Écosystème</span>
     </div>
+
   </div>
-
-  <!-- J1.10 — Retro J1 -->
-  <div class="slide hero" data-day="1">
-    <div class="slide-number">J1.12</div>
-    <div class="slide-title">Rétrospective Jour 1</div>
-    <p class="slide-subtitle">CI/CD multi-stages + Terraform + Ansible</p>
-    <div class="three-cols" style="margin-top: 32px; max-width: 800px;">
-      <div class="card emerald">
-        <h4>Ce qui a marché</h4>
-        <p>Quels concepts sont clairs ?</p>
-      </div>
-      <div class="card amber">
-        <h4>Blocages</h4>
-        <p>Où avez-vous rencontré des difficultés ?</p>
-      </div>
-      <div class="card cyan">
-        <h4>Questions</h4>
-        <p>Que voulez-vous approfondir demain ?</p>
-      </div>
-    </div>
-    <div class="info-box tip" style="margin-top: 32px; max-width: 600px;">
-      <strong>Demain</strong> : Docker avancé, Kubernetes, Prometheus & Grafana
-    </div>
-  </div>
-
 
   <!-- ══════════════════════════════════════════════════════════ -->
-  <!-- JOUR 2 — Conteneurs, Orchestration & Monitoring           -->
+  <!-- JOUR 2 — Git collaboratif & workflow GitHub                -->
   <!-- ══════════════════════════════════════════════════════════ -->
 
   <!-- J2.00 — Title -->
-  <div class="slide hero" data-day="2">
+  <div class="slide hero" data-day="2"
+       data-note="Petit warmup : qui a déjà fait une PR ? qui a déjà reçu une review ? Aujourd'hui : workflow humain le matin, premier automate l'après-midi.">
     <div class="slide-number">J2.00</div>
-    <div class="slide-title accent">Jour 2 — Conteneurs & Orchestration</div>
-    <p class="slide-subtitle">Docker avancé, Kubernetes, Monitoring avec Prometheus & Grafana</p>
+    <div style="display: flex; gap: 32px; margin-bottom: 24px; align-items: center;">
+      <img src="https://cdn.simpleicons.org/git/f05032" alt="Git" width="80" height="80" style="filter: drop-shadow(0 0 20px rgba(240, 80, 50, 0.4));">
+      <span style="font-size: 1.8em; color: var(--text-dim);">+</span>
+      <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" width="80" height="80" style="filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));">
+    </div>
+    <div class="slide-title accent">Workflow PR &amp; première CI</div>
+    <p class="slide-subtitle">Humain le matin, automate l'après-midi</p>
+
+    <div style="margin-top: 24px;">
+      <span class="tag cyan">Pull Request</span>
+      <span class="tag blue">Code review</span>
+      <span class="tag emerald">Branch protection</span>
+      <span class="tag amber">GitHub Actions</span>
+    </div>
   </div>
 
-  <!-- J2.01 — Docker avancé -->
+  <!-- J2.01 — Rappel Git express -->
   <div class="slide" data-day="2"
-       data-exercise="../exercises/06-docker-avance.md">
+       data-note="EXPLICITE : on ne fait pas un cours Git. Vous connaissez. Slide unique = aide-mémoire des commandes qu'on va utiliser dans la journée. Si quelqu'un est largué, on revoit en pause. Sinon on avance.">
     <div class="slide-number">J2.01</div>
-    <div class="slide-title">Docker avancé — Optimisation</div>
-    <div class="two-cols">
-      <div>
-        <h3>Multi-stage builds</h3>
-        <pre><code># Stage 1 : Build
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm test
+    <div class="slide-title">Rappel Git — vous connaissez déjà</div>
+    <p class="slide-subtitle">Aide-mémoire des 5 commandes qu'on va utiliser aujourd'hui. Pas un cours.</p>
 
-# Stage 2 : Production
-FROM node:20-alpine
-USER node
-COPY --from=builder /app/src ./src
-EXPOSE 3000
-HEALTHCHECK --interval=30s \
-  CMD wget -q --spider http://localhost:3000
-CMD ["node", "src/index.js"]</code></pre>
-      </div>
-      <div>
-        <h3>Checklist sécurité</h3>
+    <div class="terminal" style="margin-top: 24px; white-space: pre;">
+<span class="prompt">$</span> git clone https://github.com/vous/devops-coda-acme.git <span class="output"># récupère le repo</span>
+<span class="prompt">$</span> git checkout -b feat/add-health-route                <span class="output"># nouvelle feature branch</span>
+<span class="prompt">$</span> git add . &amp;&amp; git commit -m "feat: health route"      <span class="output"># commit local</span>
+<span class="prompt">$</span> git push -u origin feat/add-health-route             <span class="output"># envoie sur GitHub</span>
+<span class="prompt">$</span> git pull --rebase origin main                        <span class="output"># récupère + rebase main</span>
+    </div>
+  </div>
+
+  <!-- J2.02 — Le commit direct est cassé -->
+  <div class="slide" data-day="2"
+       data-note="Le push direct sur main, c'était la norme avant. Aujourd'hui c'est un anti-pattern. Expliquer pourquoi.">
+    <div class="slide-number">J2.02</div>
+    <div class="slide-title">Le commit direct sur main est cassé</div>
+    <p class="slide-subtitle">Pourquoi on n'écrit plus son code directement sur la branche principale</p>
+
+    <div class="diagram" style="margin: 32px 0;">
+      <div class="node blue">Dev A<br><span style="font-size:0.7em">push</span></div>
+      <div class="arrow">→</div>
+      <div class="node rose"><strong>main</strong><br><span style="font-size:0.7em">cassée</span></div>
+      <div class="arrow">→</div>
+      <div class="node amber">Prod 💥</div>
+    </div>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div class="card rose">
+        <h4>Ce qui casse</h4>
         <ul>
-          <li><strong>Base minimale</strong> — choisir l'image la plus petite adaptée au runtime (<code>alpine</code>, <code>slim</code>, distroless...)</li>
-          <li><strong>User non-root</strong> — <code>USER node</code> obligatoire</li>
-          <li><strong>HEALTHCHECK</strong> — pour l'orchestrateur</li>
-          <li><strong>.dockerignore</strong> — exclure node_modules, .git, .env</li>
-          <li><strong>Pas de :latest</strong> — toujours un tag versionné</li>
+          <li>Pas de review : bugs &amp; vulns passent</li>
+          <li>Pas de tests automatiques avant merge</li>
+          <li>Pas de trace : qui a validé quoi ?</li>
+          <li>Conflits : tout le monde sur la même branche</li>
         </ul>
-        <div class="info-box success">
-          <strong>Résultat</strong> : 500 MB → 80 MB, surface d'attaque réduite de 90%
-        </div>
+      </div>
+      <div class="card emerald">
+        <h4>Ce qu'on veut</h4>
+        <ul>
+          <li>Une feature = une branche dédiée</li>
+          <li>Une PR pour proposer le merge</li>
+          <li>Tests + review obligatoires</li>
+          <li><code>main</code> toujours déployable</li>
+        </ul>
       </div>
     </div>
   </div>
 
-  <!-- J2.02 — Kubernetes Architecture -->
-  <div class="slide" data-day="2">
-    <div class="slide-number">J2.02</div>
-    <div class="slide-title">Kubernetes — Architecture</div>
-    <p class="slide-subtitle">Orchestrer vos conteneurs à l'échelle</p>
+  <!-- J2.03 — Anatomie d'une PR -->
+  <div class="slide" data-day="2"
+       data-note="Décortiquer ce qu'on voit sur l'UI GitHub. Title, description, reviewers, labels, conversation, commits, files changed, checks. Insister : la PR est un objet de discussion, pas juste un bouton merge.">
+    <div class="slide-number">J2.03</div>
+    <div class="slide-title">Anatomie d'une Pull Request</div>
+    <p class="slide-subtitle">Ce qu'on voit sur GitHub, et à quoi chaque partie sert</p>
 
-    <div class="diagram">
-      <div class="node cyan">API Server</div>
-      <span class="arrow">→</span>
-      <div class="node blue">etcd</div>
-      <span class="arrow">&nbsp;</span>
-      <div class="node blue">Scheduler</div>
-      <span class="arrow">&nbsp;</span>
-      <div class="node blue">Controller</div>
+    <pre><code>┌──────────────────────────────────────────────────────────────┐
+│  feat: add /health endpoint                          #42      │
+│  alice wants to merge 3 commits into main from feat/health    │
+├──────────────────────────────────────────────────────────────┤
+│  Description     • What    • Why    • Test plan              │
+│  Reviewers       @bob @carol           Labels  enhancement    │
+│  Conversation    Inline comments + suggestions                │
+│  Commits (3)     "wip" → "feat: route" → "fix: tests"         │
+│  Files changed   src/server.ts (+18)  test/health.test.ts     │
+│  Checks          ci ✓   lint ✓   build ✓                      │
+│                                                                │
+│  [ Merge pull request ]   ← bloqué tant que checks rouges     │
+└──────────────────────────────────────────────────────────────┘</code></pre>
+
+    <div class="info-box tip" style="margin-top: 16px;">
+      <strong>La PR</strong> = unité de revue, unité de discussion, unité de déploiement. Le bouton <em>Merge</em> n'est que la dernière étape.
     </div>
-    <p style="text-align:center; font-size:0.8em; margin: 8px 0; color: var(--text-dim);">Control Plane ↑ &nbsp;&nbsp; Worker Nodes ↓</p>
-    <div class="diagram">
-      <div class="node emerald">Node 1<br><small>kubelet + pods</small></div>
-      <div class="node emerald">Node 2<br><small>kubelet + pods</small></div>
-      <div class="node emerald">Node 3<br><small>kubelet + pods</small></div>
+  </div>
+
+  <!-- J2.04 — Le workflow PR diagramme -->
+  <div class="slide" data-day="2"
+       data-note="Dérouler le pipeline humain. Insister : étapes 5 et 6 (CI + review) sont en parallèle. C'est ce qui rend le workflow rapide.">
+    <div class="slide-number">J2.04</div>
+    <div class="slide-title">Le workflow PR — étape par étape</div>
+
+    <div class="pipeline" style="margin-top: 24px; flex-wrap: wrap;">
+      <div class="stage cyan">1. Branch<span class="stage-label">checkout -b</span></div>
+      <div class="connector"></div>
+      <div class="stage cyan">2. Commits<span class="stage-label">add + commit</span></div>
+      <div class="connector"></div>
+      <div class="stage blue">3. Push<span class="stage-label">push -u</span></div>
+      <div class="connector"></div>
+      <div class="stage blue">4. PR<span class="stage-label">UI GitHub</span></div>
     </div>
+    <div class="pipeline" style="margin-top: 12px; flex-wrap: wrap;">
+      <div class="stage emerald">5. CI ✓<span class="stage-label">automatique</span></div>
+      <div class="connector"></div>
+      <div class="stage emerald">6. Review<span class="stage-label">approve / changes</span></div>
+      <div class="connector"></div>
+      <div class="stage amber">7. Fix loop<span class="stage-label">si besoin</span></div>
+      <div class="connector"></div>
+      <div class="stage rose">8. Merge<span class="stage-label">→ main</span></div>
+    </div>
+
+    <div class="info-box success" style="margin-top: 24px;">
+      <strong>Itération typique</strong> : 1 → 4 prend 30 min. 5 et 6 prennent quelques minutes à quelques heures. La fix-loop (7) peut tourner plusieurs fois. 8 est trivial ; la confiance vient des étapes précédentes.
+    </div>
+  </div>
+
+  <!-- J2.05 — Branch protection -->
+  <div class="slide" data-day="2"
+       data-note="Sans branch protection, la PR est volontaire. AVEC, elle est obligatoire. C'est ce qui fait passer une équipe d'amateur à pro.">
+    <div class="slide-number">J2.05</div>
+    <div class="slide-title">Branch protection rules</div>
+    <p class="slide-subtitle">Settings → Branches → Add rule. C'est ce qui rend la PR obligatoire.</p>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div class="card emerald">
+        <h4>Règles essentielles</h4>
+        <ul>
+          <li><strong>Require pull request</strong> avant merge</li>
+          <li><strong>Required reviewers</strong> (1 ou 2 approvals)</li>
+          <li><strong>Required status checks</strong> (CI verte)</li>
+          <li><strong>Dismiss stale reviews</strong> au new push</li>
+          <li><strong>No force-push</strong> sur <code>main</code></li>
+          <li><strong>Linear history</strong> (squash ou rebase)</li>
+        </ul>
+      </div>
+      <div class="card cyan">
+        <h4>Règles plus strictes (prod)</h4>
+        <ul>
+          <li><strong>Require signed commits</strong> (GPG)</li>
+          <li><strong>Require code owner review</strong></li>
+          <li><strong>Restrict who can push</strong></li>
+          <li><strong>Require deployment to succeed</strong></li>
+          <li><strong>Lock branch</strong> en pré-release</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box warning" style="margin-top: 16px;">
+      <strong>Sans branch protection</strong>, n'importe qui (vous compris à 23h un vendredi) peut bypass la PR avec <code>git push origin main</code>. Activez-la <em>avant</em> les premiers commits.
+    </div>
+  </div>
+
+  <!-- J2.06 — Code review bonnes pratiques -->
+  <div class="slide" data-day="2"
+       data-note="Insister : la review n'est pas un examen. C'est une collaboration. Donner des exemples concrets : 'must' vs 'nit'. Distinguer review code vs review ego.">
+    <div class="slide-number">J2.06</div>
+    <div class="slide-title">Code review : qu'est-ce qu'on regarde ?</div>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div>
+        <h3>Ce qui compte</h3>
+        <ul>
+          <li><strong>Correctness</strong> — la logique fait ce qu'elle dit</li>
+          <li><strong>Tests</strong> — ils couvrent les cas, ils sont lisibles</li>
+          <li><strong>Sécurité</strong> — secrets, injections, autorisations</li>
+          <li><strong>Lisibilité</strong> — un junior comprendra dans 6 mois</li>
+          <li><strong>Performance</strong> — uniquement si critique</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Comment commenter</h3>
+        <ul>
+          <li><strong>Soyez spécifique</strong> : "ligne 42, ce <code>if</code> peut crasher si X"</li>
+          <li><strong>Distinguer must / nit</strong> : "must: ce bug" vs "nit: style"</li>
+          <li><strong>Suggérer</strong> : utilisez les <em>suggestions</em> GitHub</li>
+          <li><strong>Pas d'attaque</strong> : critiquer le code, pas la personne</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box danger" style="margin-top: 16px;">
+      <strong>Anti-patterns</strong> : review nitpick (uniquement style), review tardive (la veille du sprint), review-rubber-stamp (LGTM sans regarder), review ad hominem.
+    </div>
+  </div>
+
+  <!-- J2.07 — Issues, labels, projets -->
+  <div class="slide" data-day="2"
+       data-note="GitHub n'est pas que du code. Issues + Projects = un Jira gratuit qui suit le code. Lier issue ↔ PR fait gagner un temps fou.">
+    <div class="slide-number">J2.07</div>
+    <div class="slide-title">Issues, labels, projets</div>
+    <p class="slide-subtitle">Tracker le travail là où il est : à côté du code</p>
 
     <div class="three-cols" style="margin-top: 16px;">
       <div class="card cyan">
-        <h4>Pod</h4>
-        <p>Plus petite unité. 1+ conteneurs partageant réseau et stockage.</p>
+        <h4>Issues</h4>
+        <p>Bug, feature request, question, tâche.</p>
+        <p style="margin-top:6px;">Templates dans <code>.github/ISSUE_TEMPLATE/</code></p>
       </div>
       <div class="card blue">
-        <h4>Service</h4>
-        <p>Expose les pods avec un DNS stable et du load balancing.</p>
+        <h4>Labels</h4>
+        <p>Catégoriser : <code>bug</code>, <code>p0</code>, <code>area/auth</code>, <code>good-first-issue</code>.</p>
       </div>
       <div class="card emerald">
-        <h4>Deployment</h4>
-        <p>Gère les replicas, rolling updates et rollbacks.</p>
+        <h4>Projects</h4>
+        <p>Vue kanban native GitHub. Auto-link issues + PRs.</p>
       </div>
     </div>
+
+    <div class="info-box tip" style="margin-top: 16px;">
+      <strong>Trick utile</strong> : dans la description d'une PR, écrire <code>Closes #42</code> ferme automatiquement l'issue 42 au merge. Idem <code>Fixes #42</code>, <code>Resolves #42</code>.
+    </div>
+
+    <pre style="margin-top: 12px;"><code>## What
+Add /health endpoint returning HTTP 200.
+
+## Why
+Closes #42 — needed for Kubernetes liveness probe.
+
+## Test plan
+- [x] unit test on response shape
+- [x] manual test with curl</code></pre>
   </div>
 
-  <!-- J2.03 — Kubernetes Ressources -->
+  <!-- J2.08 — GitHub Flow vs Git Flow -->
   <div class="slide" data-day="2"
-       data-exercise="../exercises/07-kubernetes-deploy.md">
-    <div class="slide-number">J2.03</div>
-    <div class="slide-title">Kubernetes — Ressources essentielles</div>
-    <div class="two-cols">
-      <div>
-        <h3>Manifeste Deployment</h3>
-        <pre><code>apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-app
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: my-app
-  template:
-    spec:
-      containers:
-        - name: app
-          image: my-app:v1.2.0
-          ports:
-            - containerPort: 3000
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: 250m
-              memory: 256Mi
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 3000</code></pre>
-      </div>
-      <div>
-        <h3>Ressources complémentaires</h3>
-        <table>
-          <tr><th>Ressource</th><th>Rôle</th></tr>
-          <tr><td><code>ConfigMap</code></td><td>Configuration non sensible</td></tr>
-          <tr><td><code>Secret</code></td><td>Données sensibles (base64)</td></tr>
-          <tr><td><code>Service</code></td><td>Exposition réseau + DNS</td></tr>
-          <tr><td><code>Ingress</code></td><td>Routage HTTP externe</td></tr>
-          <tr><td><code>PVC</code></td><td>Stockage persistant</td></tr>
-          <tr><td><code>HPA</code></td><td>Autoscaling horizontal</td></tr>
-        </table>
-        <div class="info-box tip">
-          <strong>Probes</strong> : <code>readinessProbe</code> = prêt à recevoir du trafic. <code>livenessProbe</code> = toujours vivant, sinon restart.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J2.04 — kubectl -->
-  <div class="slide" data-day="2">
-    <div class="slide-number">J2.04</div>
-    <div class="slide-title">kubectl — Commandes essentielles</div>
-    <div class="two-cols">
-      <div>
-        <h3>Déployer et observer</h3>
-        <div class="terminal">
-          <span class="prompt">$</span> kubectl apply -f k8s/<br>
-          <span class="output">deployment/my-app created</span><br>
-          <span class="output">service/my-app-svc created</span><br><br>
-          <span class="prompt">$</span> kubectl get pods -w<br>
-          <span class="output">NAME          READY   STATUS    RESTARTS</span><br>
-          <span class="output">my-app-abc    1/1     Running   0</span><br>
-          <span class="output">my-app-def    1/1     Running   0</span><br>
-          <span class="output">my-app-ghi    1/1     Running   0</span><br><br>
-          <span class="prompt">$</span> kubectl logs -l app=my-app --tail=20<br>
-          <span class="prompt">$</span> kubectl port-forward svc/my-app-svc 8080:80
-        </div>
-      </div>
-      <div>
-        <h3>Scaling & Rolling Updates</h3>
-        <div class="terminal">
-          <span class="prompt"># Scaler à 5 replicas</span><br>
-          <span class="prompt">$</span> kubectl scale deploy my-app --replicas=5<br><br>
-          <span class="prompt"># Mettre à jour l'image</span><br>
-          <span class="prompt">$</span> kubectl set image deploy/my-app app=my-app:v2<br><br>
-          <span class="prompt"># Suivre le rollout</span><br>
-          <span class="prompt">$</span> kubectl rollout status deploy/my-app<br><br>
-          <span class="prompt"># Rollback si problème</span><br>
-          <span class="prompt">$</span> kubectl rollout undo deploy/my-app
-        </div>
-        <div class="info-box warning">
-          <strong>Rolling Update</strong> : <code>maxSurge=1</code> et <code>maxUnavailable=0</code> réduisent fortement le risque d'interruption, à condition d'avoir des probes fiables et assez de capacité.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J2.05 — Helm -->
-  <div class="slide" data-day="2"
-       data-exercise="../exercises/08-helm-charts.md">
-    <div class="slide-number">J2.05</div>
-    <div class="slide-title">Helm & Kustomize</div>
-    <div class="two-cols">
-      <div>
-        <h3>Helm — Package manager K8s</h3>
-        <pre><code># Créer un chart
-helm create my-app/
-
-# Installer
-helm install my-release ./my-app \
-  -f values-prod.yaml \
-  -n production
-
-# Upgrade
-helm upgrade my-release ./my-app \
-  --set image.tag=v2.0.0
-
-# Rollback
-helm rollback my-release 1</code></pre>
-        <p><strong>Chart</strong> = templates + values par défaut. Chaque env a son <code>values-{env}.yaml</code>.</p>
-      </div>
-      <div>
-        <h3>Kustomize — Overlays natifs</h3>
-        <pre><code>base/
-  deployment.yaml
-  service.yaml
-  kustomization.yaml
-overlays/
-  dev/
-    kustomization.yaml   # namePrefix: dev-
-    replicas-patch.yaml  # replicas: 1
-  prod/
-    kustomization.yaml   # namePrefix: prod-
-    replicas-patch.yaml  # replicas: 5</code></pre>
-        <div class="info-box tip">
-          <strong>Helm vs Kustomize</strong> : Helm pour le templating complexe et les charts communautaires. Kustomize pour les overlays simples — intégré à kubectl.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J2.06 — Monitoring intro -->
-  <div class="slide" data-day="2">
-    <div class="slide-number">J2.06</div>
-    <div class="slide-title">Monitoring & Observabilité</div>
-    <p class="slide-subtitle">Les 3 piliers : Métriques, Logs, Traces</p>
-
-    <div class="three-cols" style="margin-top: 24px;">
-      <div class="card cyan">
-        <h4>Métriques</h4>
-        <p><strong>Prometheus</strong><br>Données numériques time-series. CPU, mémoire, requêtes/s, latence, taux d'erreur.</p>
-        <p style="margin-top:8px"><em>Quoi + Combien</em></p>
-      </div>
-      <div class="card emerald">
-        <h4>Logs</h4>
-        <p><strong>Loki / ELK</strong><br>Événements textuels structurés. Erreurs, warnings, traces d'exécution.</p>
-        <p style="margin-top:8px"><em>Quand + Contexte</em></p>
-      </div>
-      <div class="card violet">
-        <h4>Traces</h4>
-        <p><strong>Jaeger / Tempo</strong><br>Suivi d'une requête à travers les microservices. Latence par service.</p>
-        <p style="margin-top:8px"><em>Où + Parcours</em></p>
-      </div>
-    </div>
-
-    <div class="info-box tip" style="margin-top: 24px;">
-      <strong>Golden Signals</strong> (Google SRE) : Latence, Trafic, Erreurs, Saturation — les 4 métriques à surveiller en priorité.
-    </div>
-  </div>
-
-  <!-- J2.07 — Prometheus -->
-  <div class="slide" data-day="2"
-       data-exercise="../exercises/09-prometheus-grafana.md">
-    <div class="slide-number">J2.07</div>
-    <div class="slide-title">Prometheus — Métriques & Alerting</div>
-    <div class="two-cols">
-      <div>
-        <h3>Architecture</h3>
-        <div class="diagram" style="flex-direction: column; gap: 8px;">
-          <div class="node cyan" style="min-width:200px">Prometheus Server<br><small>Scrape + Stockage + Requêtes</small></div>
-          <div style="display:flex; gap: 12px; justify-content:center;">
-            <div class="node emerald" style="min-width: 100px"><small>App /metrics</small></div>
-            <div class="node emerald" style="min-width: 100px"><small>Node Exporter</small></div>
-            <div class="node emerald" style="min-width: 100px"><small>cAdvisor</small></div>
-          </div>
-        </div>
-
-        <h3>PromQL essentiel</h3>
-        <pre><code># Requêtes par seconde
-rate(http_requests_total[5m])
-
-# Latence P95
-histogram_quantile(0.95,
-  rate(http_duration_bucket[5m]))
-
-# Taux d'erreur
-sum(rate(http_requests{status=~"5.."}[5m]))
-/ sum(rate(http_requests[5m]))</code></pre>
-      </div>
-      <div>
-        <h3>Alerting</h3>
-        <pre><code>groups:
-  - name: app
-    rules:
-      - alert: HighLatency
-        expr: |
-          histogram_quantile(0.95,
-            rate(http_duration_bucket[5m])
-          ) > 0.5
-        for: 2m
-        labels:
-          severity: warning
-        annotations:
-          summary: "P95 > 500ms"</code></pre>
-        <div class="info-box warning">
-          <strong>AlertManager</strong> route les alertes : Slack, PagerDuty, email. Grouping pour éviter le spam.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J2.08 — Grafana -->
-  <div class="slide" data-day="2">
+       data-note="Show débat religieux. Mais conclusion claire : 95% des équipes modernes utilisent GitHub Flow. Git Flow était fait pour des releases trimestrielles avec versions multiples en parallèle (genre OS).">
     <div class="slide-number">J2.08</div>
-    <div class="slide-title">Grafana — Dashboards</div>
-    <div class="two-cols">
-      <div>
-        <h3>Dashboard type</h3>
-        <div class="three-cols">
-          <div class="card cyan" style="text-align:center;">
-            <h4 style="font-size:2em; margin:0;">1.2k</h4>
-            <p>req/s</p>
-          </div>
-          <div class="card emerald" style="text-align:center;">
-            <h4 style="font-size:2em; margin:0;">42ms</h4>
-            <p>P95 latency</p>
-          </div>
-          <div class="card rose" style="text-align:center;">
-            <h4 style="font-size:2em; margin:0;">0.1%</h4>
-            <p>error rate</p>
-          </div>
-        </div>
-        <div class="info-box success" style="margin-top: 16px;">
-          <strong>Dashboards as Code</strong> : provisionner via JSON + Grafana provisioning. Versionner dans Git.
-        </div>
-      </div>
-      <div>
-        <h3>Provisioning automatique</h3>
-        <pre><code># grafana/provisioning/datasources/
-apiVersion: 1
-datasources:
-  - name: Prometheus
-    type: prometheus
-    url: http://prometheus:9090
-    isDefault: true
+    <div class="slide-title">GitHub Flow vs Git Flow</div>
+    <p class="slide-subtitle">Deux modèles, deux contextes. L'un gagne.</p>
 
-# grafana/provisioning/dashboards/
-apiVersion: 1
-providers:
-  - name: default
-    type: file
-    options:
-      path: /var/lib/grafana/dashboards</code></pre>
-        <p>Les dashboards communautaires (ID <code>1860</code> = Node Exporter Full) s'importent en 1 clic.</p>
-      </div>
+    <table style="margin-top: 16px;">
+      <tr><th></th><th>GitHub Flow</th><th>Git Flow</th></tr>
+      <tr><td><strong>Branches</strong></td><td><code>main</code> + features</td><td><code>main</code> + <code>develop</code> + features + releases + hotfixes</td></tr>
+      <tr><td><strong>Déploiement</strong></td><td>main → prod en continu</td><td>Releases planifiées</td></tr>
+      <tr><td><strong>Complexité</strong></td><td>Simple</td><td>Élevée (5 types de branches)</td></tr>
+      <tr><td><strong>Pour qui</strong></td><td>SaaS, web apps, services</td><td>Logiciels avec versions multiples (OS, libs majeures)</td></tr>
+      <tr><td><strong>Adoption 2026</strong></td><td>≈ 90 %</td><td>Niche</td></tr>
+    </table>
+
+    <div class="info-box success" style="margin-top: 16px;">
+      <strong>Choisissez GitHub Flow par défaut</strong>. Git Flow se justifie quand vous maintenez plusieurs versions en parallèle (ex: v1.x et v2.x supportées simultanément).
     </div>
   </div>
 
-  <!-- J2.09 — Retro J2 -->
-  <div class="slide hero" data-day="2">
+  <!-- J2.09 — TP J2 -->
+  <div class="slide" data-day="2"
+       data-note="TP collaboratif. En binôme : repo partagé, PRs croisées, conflit, puis première GitHub Action et required status check."
+       data-exercise="../exercises/02-workflow-pr.md">
     <div class="slide-number">J2.09</div>
-    <div class="slide-title">Rétrospective Jour 2</div>
-    <p class="slide-subtitle">Docker avancé + Kubernetes + Monitoring</p>
-    <div class="pipeline" style="margin-top: 32px;">
-      <div class="stage cyan">Build<span class="stage-label">Docker multi-stage</span></div>
-      <div class="connector"></div>
-      <div class="stage blue">Deploy<span class="stage-label">K8s + Helm</span></div>
-      <div class="connector"></div>
-      <div class="stage emerald">Observe<span class="stage-label">Prometheus + Grafana</span></div>
-      <div class="connector"></div>
-      <div class="stage amber">Iterate<span class="stage-label">Scale + Update</span></div>
+    <div class="slide-title">TP : Acme passe en PR + CI</div>
+    <p class="slide-subtitle">En binôme — journée guidée — code fourni</p>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div class="card cyan">
+        <h4>Setup (10 min)</h4>
+        <ol>
+          <li>Un binôme = 1 repo partagé sur GitHub</li>
+          <li>Activer branch protection sur <code>main</code> (PR obligatoire, 1 review)</li>
+          <li>Bootstrap depuis <code>starter-code/app</code></li>
+        </ol>
+      </div>
+      <div class="card blue">
+        <h4>PR croisée</h4>
+        <ol>
+          <li>Chacun crée une feature branch</li>
+          <li>Ajoute un endpoint avec code fourni</li>
+          <li>Ouvre une PR croisée</li>
+          <li>L'autre review, demande un changement</li>
+          <li>Fixer, re-push, merger</li>
+        </ol>
+      </div>
     </div>
-    <div class="info-box tip" style="margin-top: 32px; max-width: 600px;">
-      <strong>Demain</strong> : DevSecOps, GitOps avec ArgoCD et déploiement cloud-native
+
+    <div class="card emerald" style="margin-top: 16px;">
+      <h4>Après-midi — GitHub Actions</h4>
+      <p>Ajouter <code>.github/workflows/ci.yml</code>, rendre le check obligatoire, casser volontairement un test, constater le merge bloqué, corriger.</p>
     </div>
   </div>
 
+  <!-- J2.10 — Rétro J2 -->
+  <div class="slide hero" data-day="2"
+       data-note="Rétro courte : Acme a maintenant PR + review + CI minimale. Demain on rend la CI plus propre, puis on construit et publie l'image Docker.">
+    <div class="slide-number">J2.10</div>
+    <div class="slide-title accent">Rétro Jour 2</div>
+    <p class="slide-subtitle">PR, review, branch protection, première CI obligatoire.</p>
+
+    <div style="margin-top: 24px;">
+      <span class="tag cyan">Workflow PR</span>
+      <span class="tag blue">Branch protection</span>
+      <span class="tag emerald">Code review</span>
+      <span class="tag amber">GitHub Actions</span>
+    </div>
+
+  </div>
 
   <!-- ══════════════════════════════════════════════════════════ -->
-  <!-- JOUR 3 — DevSecOps & Cloud-Native                         -->
+  <!-- JOUR 3 — CI avec GitHub Actions + Docker/GHCR              -->
   <!-- ══════════════════════════════════════════════════════════ -->
 
   <!-- J3.00 — Title -->
-  <div class="slide hero" data-day="3">
+  <div class="slide hero" data-day="3"
+       data-note="Aujourd'hui on consolide la CI, puis on construit l'artefact Docker et on le publie dans GHCR.">
     <div class="slide-number">J3.00</div>
-    <div class="slide-title accent">Jour 3 — DevSecOps & Cloud-Native</div>
-    <p class="slide-subtitle">Sécurité shift-left, GitOps avec ArgoCD et patterns cloud-native</p>
+    <img src="https://cdn.simpleicons.org/githubactions/2088ff" alt="GitHub Actions" width="96" height="96" style="margin-bottom: 24px; filter: drop-shadow(0 0 24px rgba(32, 136, 255, 0.4));">
+    <div class="slide-title accent">CI propre &amp; Docker/GHCR</div>
+    <p class="slide-subtitle">Du check PR à l'image publiée</p>
+
+    <div style="margin-top: 24px;">
+      <span class="tag cyan">Workflow YAML</span>
+      <span class="tag blue">Triggers &amp; jobs</span>
+      <span class="tag emerald">Docker</span>
+      <span class="tag amber">GHCR</span>
+    </div>
   </div>
 
-  <!-- J3.01 — DevSecOps Principles -->
-  <div class="slide" data-day="3">
+  <!-- J3.01 — Anatomie pipeline -->
+  <div class="slide" data-day="3"
+       data-note="Présenter le pipeline canonique. Insister : chaque étape est un garde-fou. Si une étape rouge, on n'avance pas.">
     <div class="slide-number">J3.01</div>
-    <div class="slide-title">DevSecOps — Shift-Left Security</div>
-    <p class="slide-subtitle">La sécurité est l'affaire de tous, pas seulement de l'équipe sécu</p>
+    <div class="slide-title">Anatomie d'un pipeline CI/CD</div>
+    <p class="slide-subtitle">Du commit à la prod : chaque étape est un garde-fou</p>
 
-    <div class="pipeline">
-      <div class="stage rose">Code<span class="stage-label">SAST / Linting</span></div>
+    <div class="pipeline" style="margin-top: 24px; flex-wrap: wrap;">
+      <div class="stage cyan">Code<span class="stage-label">commit / PR</span></div>
       <div class="connector"></div>
-      <div class="stage rose">Build<span class="stage-label">Scan dépendances</span></div>
+      <div class="stage cyan">Lint<span class="stage-label">style, types</span></div>
       <div class="connector"></div>
-      <div class="stage rose">Test<span class="stage-label">DAST / Pentest</span></div>
+      <div class="stage blue">Test<span class="stage-label">unit + intégration</span></div>
       <div class="connector"></div>
-      <div class="stage rose">Deploy<span class="stage-label">Scan images</span></div>
+      <div class="stage blue">Build<span class="stage-label">artefact</span></div>
+    </div>
+    <div class="pipeline" style="margin-top: 12px; flex-wrap: wrap;">
+      <div class="stage emerald">Scan<span class="stage-label">vulns, secrets</span></div>
       <div class="connector"></div>
-      <div class="stage rose">Run<span class="stage-label">Runtime security</span></div>
+      <div class="stage emerald">Push image<span class="stage-label">registry</span></div>
+      <div class="connector"></div>
+      <div class="stage amber">Deploy<span class="stage-label">staging / prod</span></div>
+      <div class="connector"></div>
+      <div class="stage rose">Monitor<span class="stage-label">prod</span></div>
     </div>
 
-    <div class="two-cols" style="margin-top: 24px;">
-      <div>
-        <h3>Types de scan</h3>
-        <table>
-          <tr><th>Type</th><th>Quand</th><th>Outils</th></tr>
-          <tr><td><strong>SAST</strong></td><td>Code source</td><td>CodeQL, Semgrep</td></tr>
-          <tr><td><strong>SCA</strong></td><td>Dépendances</td><td>Snyk, Dependabot</td></tr>
-          <tr><td><strong>Image scan</strong></td><td>Build</td><td>Trivy, Grype</td></tr>
-          <tr><td><strong>IaC scan</strong></td><td>Terraform</td><td>Trivy, Checkov</td></tr>
-          <tr><td><strong>Secret scan</strong></td><td>Git</td><td>Gitleaks, TruffleHog</td></tr>
-        </table>
-      </div>
-      <div>
-        <h3>Supply Chain Security</h3>
-        <ul>
-          <li><strong>SBOM</strong> — Software Bill of Materials</li>
-          <li><strong>Signatures</strong> — Cosign pour signer les images</li>
-          <li><strong>Provenance</strong> — SLSA framework</li>
-          <li><strong>Lock files</strong> — verrouiller les versions</li>
-        </ul>
-        <div class="info-box danger">
-          <strong>Supply chain attacks</strong> : SolarWinds, Log4Shell, xz-utils. Scanner n'est pas optionnel.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J3.02 — Trivy & scanning -->
-  <div class="slide" data-day="3"
-       data-exercise="../exercises/10-devsecops-scan.md">
-    <div class="slide-number">J3.02</div>
-    <div class="slide-title">Scan & Conformité en pratique</div>
-    <div class="two-cols">
-      <div>
-        <h3>Trivy — Scanner universel</h3>
-        <div class="terminal">
-          <span class="prompt">$</span> trivy image my-app:1.0.0<br>
-          <span class="output">Total: 3 (HIGH: 2, CRITICAL: 1)</span><br><br>
-          <span class="prompt">$</span> trivy fs --scanners vuln app/<br>
-          <span class="output">Total: 0 vulnerabilities</span><br><br>
-          <span class="prompt">$</span> trivy config infra/terraform/<br>
-          <span class="output">Misconfigurations: 1 (MEDIUM)</span><br><br>
-          <span class="prompt">$</span> gitleaks detect --source .<br>
-          <span class="output">No leaks found</span>
-        </div>
-      </div>
-      <div>
-        <h3>OPA — Politiques as Code</h3>
-        <pre><code>package kubernetes
-
-# Interdire les conteneurs privilégiés
-deny[msg] {
-  container := input.spec.template
-    .spec.containers[_]
-  container.securityContext.privileged
-  msg = sprintf(
-    "%s ne doit pas être privilégié",
-    [container.name])
-}
-
-# Exiger des resource limits
-deny[msg] {
-  container := input.spec.template
-    .spec.containers[_]
-  not container.resources.limits
-  msg = sprintf(
-    "%s doit avoir des limits",
-    [container.name])
-}</code></pre>
-      </div>
-    </div>
-  </div>
-
-  <!-- J3.03 — GitOps Concepts -->
-  <div class="slide" data-day="3">
-    <div class="slide-number">J3.03</div>
-    <div class="slide-title">GitOps — Git comme source de vérité</div>
-    <div class="two-cols">
-      <div>
-        <h3>Principes GitOps</h3>
-        <ul>
-          <li><strong>Déclaratif</strong> — l'état souhaité est dans Git</li>
-          <li><strong>Versionné</strong> — chaque changement est un commit</li>
-          <li><strong>Pull automatique</strong> — l'agent sync le cluster</li>
-          <li><strong>Self-healing</strong> — dérive détectée → correction auto</li>
-        </ul>
-        <div class="info-box tip">
-          <strong>Push vs Pull</strong> : Push (CI pousse vers K8s) = credentials CI → risque. Pull (ArgoCD dans le cluster lit Git) = plus sûr.
-        </div>
-      </div>
-      <div>
-        <h3>Workflow GitOps</h3>
-        <div class="diagram" style="flex-direction: column; gap: 12px;">
-          <div style="display:flex; gap: 12px; align-items:center; justify-content:center;">
-            <div class="node cyan">Code Repo</div>
-            <span class="arrow">→ CI →</span>
-            <div class="node blue">GitOps Repo</div>
-          </div>
-          <div style="text-align:center; color: var(--text-dim);">↓ sync</div>
-          <div style="display:flex; gap: 12px; align-items:center; justify-content:center;">
-            <div class="node emerald active">ArgoCD</div>
-            <span class="arrow">→</span>
-            <div class="node amber">Cluster K8s</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J3.04 — ArgoCD -->
-  <div class="slide" data-day="3"
-       data-exercise="../exercises/11-gitops-argocd.md">
-    <div class="slide-number">J3.04</div>
-    <div class="slide-title">ArgoCD en pratique</div>
-    <div class="two-cols">
-      <div>
-        <h3>Application ArgoCD</h3>
-        <pre><code>apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: my-app-prod
-  namespace: argocd
-spec:
-  source:
-    repoURL: https://github.com/...
-    path: apps/my-app/overlays/prod
-    targetRevision: main
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: production
-  syncPolicy:
-    automated:
-      prune: true      # Supprime les orphelins
-      selfHeal: true   # Corrige les dérives</code></pre>
-      </div>
-      <div>
-        <h3>UI ArgoCD</h3>
-        <div class="three-cols">
-          <div class="card emerald" style="text-align:center;">
-            <h4 style="color: var(--accent-emerald);">Synced</h4>
-            <p>Git = Cluster</p>
-          </div>
-          <div class="card amber" style="text-align:center;">
-            <h4 style="color: var(--accent-amber);">OutOfSync</h4>
-            <p>Changement pending</p>
-          </div>
-          <div class="card rose" style="text-align:center;">
-            <h4 style="color: var(--accent-rose);">Degraded</h4>
-            <p>Pods en erreur</p>
-          </div>
-        </div>
-        <h3 style="margin-top: 16px;">Promotion multi-env</h3>
-        <div class="pipeline">
-          <div class="stage cyan">dev<span class="stage-label">auto-sync</span></div>
-          <div class="connector"></div>
-          <div class="stage blue">staging<span class="stage-label">auto-sync</span></div>
-          <div class="connector"></div>
-          <div class="stage amber">prod<span class="stage-label">manual sync</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J3.05 — Cloud-Native Patterns -->
-  <div class="slide" data-day="3">
-    <div class="slide-number">J3.05</div>
-    <div class="slide-title">Patterns Cloud-Native</div>
-    <div class="two-cols">
-      <div>
-        <h3>12-Factor App (extraits)</h3>
-        <table>
-          <tr><th>#</th><th>Facteur</th><th>Principe</th></tr>
-          <tr><td>I</td><td>Codebase</td><td>1 repo = 1 app</td></tr>
-          <tr><td>III</td><td>Config</td><td>Env vars, pas de fichiers</td></tr>
-          <tr><td>VI</td><td>Processes</td><td>Stateless, share-nothing</td></tr>
-          <tr><td>VII</td><td>Port binding</td><td>Self-contained HTTP</td></tr>
-          <tr><td>IX</td><td>Disposability</td><td>Démarrage rapide, arrêt propre</td></tr>
-          <tr><td>XI</td><td>Logs</td><td>Flux stdout, pas de fichiers</td></tr>
-        </table>
-      </div>
-      <div>
-        <h3>Service Mesh</h3>
-        <div class="diagram" style="flex-direction:column; gap: 8px;">
-          <div style="display:flex; gap:8px; justify-content:center;">
-            <div class="node cyan"><small>Service A</small><br><small>+ sidecar</small></div>
-            <span class="arrow" style="align-self:center;">↔</span>
-            <div class="node cyan"><small>Service B</small><br><small>+ sidecar</small></div>
-          </div>
-          <div class="node violet" style="align-self:center; min-width:200px"><small>Control Plane (Istio/Linkerd)</small></div>
-        </div>
-        <p style="margin-top:12px">mTLS automatique, retry, circuit breaker, observabilité — sans modifier le code applicatif.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- J3.06 — Multi-Cloud Terraform -->
-  <div class="slide" data-day="3">
-    <div class="slide-number">J3.06</div>
-    <div class="slide-title">Déploiement Multi-Cloud (bonus)</div>
-    <div class="two-cols">
-      <div>
-        <h3>Terraform multi-provider</h3>
-        <pre><code># AWS
-provider "aws" {
-  region = "eu-west-1"
-}
-resource "aws_instance" "web" {
-  ami           = "ami-xxx"
-  instance_type = "t3.micro"
-}
-
-# GCP
-provider "google" {
-  project = "my-project"
-  region  = "europe-west1"
-}
-resource "google_compute_instance" "web" {
-  name         = "web-server"
-  machine_type = "e2-micro"
-}</code></pre>
-      </div>
-      <div>
-        <h3>Services managés comparés</h3>
-        <table>
-          <tr><th>Service</th><th>AWS</th><th>GCP</th><th>Azure</th></tr>
-          <tr><td>K8s</td><td>EKS</td><td>GKE</td><td>AKS</td></tr>
-          <tr><td>Serverless</td><td>Lambda</td><td>Cloud Run</td><td>Functions</td></tr>
-          <tr><td>Registry</td><td>ECR</td><td>GAR</td><td>ACR</td></tr>
-          <tr><td>DB managée</td><td>RDS</td><td>Cloud SQL</td><td>Azure DB</td></tr>
-          <tr><td>Object store</td><td>S3</td><td>GCS</td><td>Blob</td></tr>
-        </table>
-        <div class="info-box warning">
-          <strong>Piège multi-cloud</strong> : ne pas abstraire trop. Chaque provider a ses forces — utiliser le bon outil pour le bon cas d'usage.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- J3.07 — Bilan & Ressources -->
-  <div class="slide hero" data-day="3">
-    <div class="slide-number">J3.07</div>
-    <div class="slide-title">Bilan & Ressources</div>
-    <div class="three-cols" style="margin-top: 32px; max-width: 900px;">
+    <div class="two-cols" style="margin-top: 16px;">
       <div class="card cyan">
-        <h4>Jour 1</h4>
-        <p>CI/CD multi-stages<br>Terraform & Ansible<br>Infrastructure as Code</p>
+        <h4>CI — Continuous Integration</h4>
+        <p>Code → artefact validé. <strong>Stages 1 → 5</strong>. C'est ce qu'on attaque aujourd'hui.</p>
+      </div>
+      <div class="card amber">
+        <h4>CD — Continuous Delivery / Deployment</h4>
+        <p>Artefact → prod. <strong>Stages 6 → 8</strong>. Ouverture J4.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- J3.02 — Pourquoi automatiser -->
+  <div class="slide" data-day="3"
+       data-note="Le coût d'un bug. C'est un graphique classique mais qui frappe. Plus on attend, plus c'est cher.">
+    <div class="slide-number">J3.02</div>
+    <div class="slide-title">Pourquoi automatiser</div>
+    <p class="slide-subtitle">Le coût d'un bug est exponentiel selon où on le trouve</p>
+
+    <table style="margin-top: 16px;">
+      <tr><th>Détecté en…</th><th>Coût relatif</th><th>Pourquoi</th></tr>
+      <tr><td><strong>IDE (dev)</strong></td><td>1×</td><td>Auto-correction, contexte chaud</td></tr>
+      <tr><td><strong>CI (PR)</strong></td><td>10×</td><td>Faut re-push, re-review, re-attendre</td></tr>
+      <tr><td><strong>Staging</strong></td><td>30×</td><td>Faut investiguer dans un autre env</td></tr>
+      <tr><td><strong>Prod (silencieux)</strong></td><td>100×</td><td>Bug masqué, drift, support</td></tr>
+      <tr><td><strong>Prod (incident)</strong></td><td>1000×</td><td>Astreinte, comm clients, root cause</td></tr>
+    </table>
+
+    <div class="info-box success" style="margin-top: 16px;">
+      <strong>L'automatisation déplace les bugs vers la gauche</strong> (shift-left). On veut un maximum de bugs détectés en CI, pas en prod.
+    </div>
+  </div>
+
+  <!-- J3.03 — GHA concepts -->
+  <div class="slide" data-day="3"
+       data-note="Le vocabulaire de base. Workflow / Job / Step / Runner / Action. Chacun a un rôle clair. À ré-utiliser pendant toute la journée.">
+    <div class="slide-number">J3.03</div>
+    <div class="slide-title">GitHub Actions — concepts</div>
+    <p class="slide-subtitle">5 mots à connaître pour lire n'importe quel workflow</p>
+
+    <table style="margin-top: 16px;">
+      <tr><th>Concept</th><th>Rôle</th><th>Exemple</th></tr>
+      <tr><td><strong>Workflow</strong></td><td>Un fichier YAML qui décrit un pipeline</td><td><code>.github/workflows/ci.yml</code></td></tr>
+      <tr><td><strong>Job</strong></td><td>Une unité d'exécution, sur un runner</td><td><code>jobs.test</code></td></tr>
+      <tr><td><strong>Step</strong></td><td>Une commande shell ou une action</td><td><code>- run: npm test</code></td></tr>
+      <tr><td><strong>Runner</strong></td><td>La VM qui exécute le job</td><td><code>ubuntu-latest</code></td></tr>
+      <tr><td><strong>Action</strong></td><td>Une brique réutilisable (Marketplace)</td><td><code>actions/checkout@v4</code></td></tr>
+    </table>
+
+    <div class="info-box tip" style="margin-top: 16px;">
+      <strong>Modèle mental</strong> : un workflow contient des <em>jobs</em> qui s'exécutent en parallèle (par défaut). Chaque job tourne dans une VM neuve. Chaque job contient des <em>steps</em> séquentiels.
+    </div>
+  </div>
+
+  <!-- J3.04 — Premier workflow -->
+  <div class="slide" data-day="3"
+       data-note="Le hello world. Insister : copier-coller, le pousser dans .github/workflows/, ça tourne. C'est tout.">
+    <div class="slide-number">J3.04</div>
+    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 8px;">
+      <img src="https://cdn.simpleicons.org/githubactions/2088ff" alt="GitHub Actions" width="44" height="44">
+      <div class="slide-title" style="margin-bottom: 0;">Premier workflow YAML</div>
+    </div>
+    <p class="slide-subtitle">Le minimum vital pour avoir un job qui tourne</p>
+
+    <pre><code>name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test</code></pre>
+
+  </div>
+
+  <!-- J3.05 — Triggers -->
+  <div class="slide" data-day="3"
+       data-note="L'événement qui démarre le workflow. Insister sur pull_request — c'est LE trigger métier de la journée.">
+    <div class="slide-number">J3.05</div>
+    <div class="slide-title">Triggers — quand le workflow se déclenche</div>
+
+    <pre><code>on:
+  push:
+    branches: [main, develop]
+    paths: ['src/**', 'package.json']
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: '0 3 * * *'        # tous les jours à 3h UTC
+  workflow_dispatch:            # bouton manuel dans l'UI
+    inputs:
+      env:
+        type: choice
+        options: [staging, prod]
+  workflow_call:                # réutilisable depuis d'autres workflows</code></pre>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div class="card cyan">
+        <h4>Triggers usuels</h4>
+        <ul>
+          <li><code>push</code> — sur main = build de référence</li>
+          <li><code>pull_request</code> — checks bloquants</li>
+          <li><code>workflow_dispatch</code> — déclenchement manuel</li>
+        </ul>
+      </div>
+      <div class="card blue">
+        <h4>Filters utiles</h4>
+        <ul>
+          <li><code>branches:</code> — restreindre à certaines branches</li>
+          <li><code>paths:</code> — uniquement si fichiers modifiés</li>
+          <li><code>tags:</code> — déclencher sur tag (release)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- J3.06 — Cas d'usage CI -->
+  <div class="slide" data-day="3"
+       data-note="LE TP central de la journée. Chaque binôme écrit ce ci.yml dans son repo et observe le run."
+       data-exercise="../exercises/03-pipeline-ci.md">
+    <div class="slide-number">J3.06</div>
+    <div class="slide-title">Cas d'usage : pipeline CI Acme</div>
+    <p class="slide-subtitle">Lint + test + build sur PR — TP 1h</p>
+
+    <pre><code>name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build</code></pre>
+
+    <div class="info-box success" style="margin-top: 12px;">
+      <strong>Livrable</strong> : ouvrir une PR, voir 4 cases vertes (checkout, lint, test, build) dans l'onglet Checks. Si l'une est rouge → la PR ne se merge pas.
+    </div>
+  </div>
+
+  <!-- J3.07 — Matrix -->
+  <div class="slide" data-day="3"
+       data-note="Matrix = parallélisme. On teste sur plusieurs versions sans dupliquer le YAML. Très utile pour libs publiques.">
+    <div class="slide-number">J3.07</div>
+    <div class="slide-title">Matrix builds</div>
+    <p class="slide-subtitle">Tester sur plusieurs versions / OS sans dupliquer le job</p>
+
+    <pre><code>jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22]
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm test</code></pre>
+
+    <div class="info-box tip" style="margin-top: 16px;">
+      <strong>Effet</strong> : 3 versions × 2 OS = 6 jobs en parallèle. <code>fail-fast: false</code> permet de voir l'échec sur chaque combinaison plutôt que d'arrêter au premier rouge.
+    </div>
+  </div>
+
+  <!-- J3.08 — Cache -->
+  <div class="slide" data-day="3"
+       data-note="Le cache est la première optimisation à connaître. Passer de 90s à 15s sur une CI Node, c'est typique.">
+    <div class="slide-number">J3.08</div>
+    <div class="slide-title">Cache des dépendances</div>
+    <p class="slide-subtitle">Le moyen le plus simple d'accélérer une CI</p>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div>
+        <h3>Méthode simple — <code>setup-node</code></h3>
+<pre><code>- uses: actions/setup-node@v4
+  with:
+    node-version: 20
+    cache: 'npm'        # ← suffit</code></pre>
+        <p style="font-size: 0.9em; margin-top: 8px;">Caches automatiquement <code>~/.npm</code> en se basant sur <code>package-lock.json</code>.</p>
+      </div>
+      <div>
+        <h3>Cache générique — <code>actions/cache</code></h3>
+<pre><code>- uses: actions/cache@v4
+  with:
+    path: ~/.npm
+    key: deps-${{ hashFiles('package-lock.json') }}
+    restore-keys: |
+      deps-</code></pre>
+        <p style="font-size: 0.9em; margin-top: 8px;">Pour autre chose que Node (Maven, Gradle, Cargo, Go modules…).</p>
+      </div>
+    </div>
+
+    <div class="info-box success" style="margin-top: 16px;">
+      <strong>Gain typique</strong> : <code>npm ci</code> passe de 60–90s à 5–15s. Sur 1000 runs/mois, c'est des heures de CI économisées.
+    </div>
+  </div>
+
+  <!-- J3.09 — Marketplace -->
+  <div class="slide" data-day="3"
+       data-note="Marketplace = double tranchant. Beaucoup d'actions utiles, mais aussi du tier non-audité. Insister sur le pin.">
+    <div class="slide-number">J3.09</div>
+    <div class="slide-title">Marketplace &amp; actions communautaires</div>
+    <p class="slide-subtitle">Des milliers de briques prêtes — avec des règles d'hygiène</p>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div class="card cyan">
+        <h4>Actions officielles à connaître</h4>
+        <ul>
+          <li><code>actions/checkout</code> — récupérer le code</li>
+          <li><code>actions/setup-node</code> / <code>setup-python</code> / <code>setup-java</code></li>
+          <li><code>actions/cache</code> — caching</li>
+          <li><code>actions/upload-artifact</code> — partager entre jobs</li>
+          <li><code>docker/build-push-action</code> — image Docker</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <h4>Hygiène</h4>
+        <ul>
+          <li><strong>Pin par version</strong> : <code>@v4</code> minimum</li>
+          <li><strong>Pin par SHA</strong> en prod : <code>@a1b2c3...</code> (immuable)</li>
+          <li><strong>Marketplace</strong> uniquement les "Verified creator" ou audités</li>
+          <li><strong>Lire le code source</strong> avant d'adopter une action obscure</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box danger" style="margin-top: 16px;">
+      <strong>Faille typique</strong> : action tierce qui exfiltre vos secrets. Plusieurs incidents publics. Pinner par SHA empêche un mainteneur compromis de pousser un payload malveillant en sous-marin.
+    </div>
+  </div>
+
+  <!-- J3.10 — Status checks -->
+  <div class="slide" data-day="3"
+       data-note="Le moment où la branch protection rencontre la CI. C'est ce qui rend la CI 'utile' politiquement. Sans status check requis, la CI est volontaire.">
+    <div class="slide-number">J3.10</div>
+    <div class="slide-title">Status checks bloquants</div>
+    <p class="slide-subtitle">La CI ne devient obligatoire que via la branch protection</p>
+
+    <div class="diagram" style="margin: 32px 0;">
+      <div class="node cyan">PR ouverte</div>
+      <div class="arrow">→</div>
+      <div class="node blue">CI rouge ✗</div>
+      <div class="arrow">→</div>
+      <div class="node rose">Merge bloqué</div>
+    </div>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div class="card emerald">
+        <h4>Comment activer</h4>
+        <ol>
+          <li>Settings → Branches → <code>main</code></li>
+          <li>"Require status checks to pass"</li>
+          <li>Sélectionner <code>ci</code> (le job)</li>
+          <li>"Require branches to be up to date"</li>
+        </ol>
+      </div>
+      <div class="card amber">
+        <h4>Effet sur la PR</h4>
+        <ul>
+          <li>Bouton <em>Merge</em> grisé tant que CI rouge</li>
+          <li>Reviewers peuvent quand même approuver — le bouton reste bloqué</li>
+          <li>Admins peuvent forcer (à éviter)</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- JOUR 4 — Ouverture pipeline & audit final                  -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+
+  <!-- J4.00 — Title -->
+  <div class="slide hero" data-day="4"
+       data-note="Dernière journée. Matin : ouverture vers les briques autour du pipeline. Après-midi : audit LoueUneChevre.com.">
+    <div class="slide-number">J4.00</div>
+    <div style="display: flex; gap: 32px; margin-bottom: 24px; align-items: center;">
+      <img src="https://cdn.simpleicons.org/docker/2496ed" alt="Docker" width="80" height="80" style="filter: drop-shadow(0 0 24px rgba(36, 150, 237, 0.4));">
+      <span style="font-size: 2em; color: var(--text-dim);">→</span>
+      <img src="https://cdn.simpleicons.org/github/ffffff" alt="GHCR" width="80" height="80" style="filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.2));">
+      <span style="font-size: 2em; color: var(--text-dim);">→</span>
+      <img src="https://cdn.simpleicons.org/render/46e3b7" alt="Render" width="80" height="80" style="filter: drop-shadow(0 0 24px rgba(70, 227, 183, 0.4));">
+    </div>
+    <div class="slide-title accent">Ouverture pipeline &amp; audit final</div>
+    <p class="slide-subtitle">Ce qui entoure la CI/CD, puis mission LoueUneChevre.com</p>
+
+    <div style="margin-top: 24px;">
+      <span class="tag cyan">Delivery</span>
+      <span class="tag blue">Secrets &amp; environments</span>
+      <span class="tag emerald">Terraform &amp; monitoring</span>
+      <span class="tag amber">Projet final</span>
+    </div>
+  </div>
+
+  <!-- J4.01 — De CI à CD -->
+  <div class="slide" data-day="4"
+       data-note="Distinction conceptuelle CRITIQUE. Continuous Delivery = capable de déployer à tout moment. Continuous Deployment = déploie automatiquement à chaque merge. La frontière est l'approval manuel.">
+    <div class="slide-number">J4.01</div>
+    <div class="slide-title">De CI à CD</div>
+    <p class="slide-subtitle">Continuous Integration → Delivery → Deployment</p>
+
+    <div class="three-cols" style="margin-top: 24px;">
+      <div class="card cyan">
+        <h4>Continuous Integration</h4>
+        <p>Code → artefact validé.</p>
+        <ul style="margin-top:8px;">
+          <li>Tests, lint, build</li>
+          <li>S'arrête à un artefact prêt</li>
+        </ul>
+        <p style="margin-top:8px;"><span class="tag cyan">J3 ✓</span></p>
+      </div>
+      <div class="card blue">
+        <h4>Continuous Delivery</h4>
+        <p>Artefact → prêt à déployer.</p>
+        <ul style="margin-top:8px;">
+          <li>Déploiement = bouton</li>
+          <li>Validation humaine</li>
+        </ul>
+        <p style="margin-top:8px;"><span class="tag blue">approval manuel</span></p>
       </div>
       <div class="card emerald">
-        <h4>Jour 2</h4>
-        <p>Docker avancé<br>Kubernetes & Helm<br>Prometheus & Grafana</p>
-      </div>
-      <div class="card violet">
-        <h4>Jour 3</h4>
-        <p>DevSecOps & Trivy<br>GitOps & ArgoCD<br>Cloud-native patterns</p>
+        <h4>Continuous Deployment</h4>
+        <p>Merge → prod, automatique.</p>
+        <ul style="margin-top:8px;">
+          <li>Pas d'humain</li>
+          <li>Demande maturité élevée</li>
+        </ul>
+        <p style="margin-top:8px;"><span class="tag emerald">full auto</span></p>
       </div>
     </div>
-    <div style="margin-top: 32px; text-align: left; max-width: 500px;">
-      <h3>Pour aller plus loin</h3>
-      <ul>
-        <li><strong>Kubernetes the Hard Way</strong> — Kelsey Hightower</li>
-        <li><strong>The Phoenix Project</strong> — Gene Kim</li>
-        <li><strong>SRE Book</strong> — Google</li>
-        <li><strong>DORA State of DevOps Report</strong></li>
-      </ul>
+
+    <div class="info-box tip" style="margin-top: 16px;">
+      <strong>Choix typique</strong> : Continuous <em>Deployment</em> sur staging, Continuous <em>Delivery</em> avec approval sur prod. Le meilleur des deux mondes.
     </div>
   </div>
 
-  <!-- J3.08 — Merci -->
-  <div class="slide hero" data-day="3">
-    <div class="slide-number">J3.08</div>
-    <div class="slide-title accent">Merci !</div>
-    <p class="slide-subtitle">3 jours intenses — vous êtes prêts à piloter vos pipelines DevOps</p>
-    <div style="margin-top: 32px;">
-      <p><strong>Sion GENDERS</strong> — Formateur depuis 2011</p>
-      <p style="color: var(--accent-cyan);">linkedin.com/in/sion-gdrs/</p>
+  <!-- J3.12 — Build Docker -->
+  <div class="slide" data-day="3"
+       data-note="Construire l'image dans la CI. Pourquoi : artefact reproductible, déploiement uniforme."
+       data-exercise="../exercises/04-docker-ghcr.md">
+    <div class="slide-number">J3.12</div>
+    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 8px;">
+      <img src="https://cdn.simpleicons.org/docker/2496ed" alt="Docker" width="44" height="44">
+      <div class="slide-title" style="margin-bottom: 0;">Cas d'usage : build Docker dans la CI</div>
     </div>
+    <p class="slide-subtitle">L'artefact qui va voyager jusqu'à la prod</p>
+
+    <pre><code>jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: devops-app:${{ github.sha }}
+          load: true             # charge l'image dans le runner
+
+      - name: Smoke test image
+        run: |
+          docker run -d --name app -p 3000:3000 devops-app:${{ github.sha }}
+          sleep 3
+          curl -fsSL http://localhost:3000/health
+          docker stop app</code></pre>
+
+    <div class="info-box tip" style="margin-top: 16px;">
+      <strong>Pourquoi Docker en CI</strong> : on teste exactement ce qui ira en prod. Plus de "ça marchait en CI mais pas en prod" parce que la CI utilisait Node 20 et la prod Node 18.
+    </div>
+  </div>
+
+  <!-- J3.13 — Push GHCR -->
+  <div class="slide" data-day="3"
+       data-note="GHCR = registry intégré à GitHub, gratuit pour les repos publics. Pas besoin de Docker Hub. Le GITHUB_TOKEN automatique suffit."
+       data-exercise="../exercises/04-docker-ghcr.md">
+    <div class="slide-number">J3.13</div>
+    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 8px;">
+      <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" width="44" height="44">
+      <div class="slide-title" style="margin-bottom: 0;">Cas d'usage : push sur GHCR</div>
+    </div>
+    <p class="slide-subtitle">GitHub Container Registry, gratuit, intégré, géré</p>
+
+    <pre><code>jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write           # ← requis pour push GHCR
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:latest</code></pre>
+
+    <div class="info-box success" style="margin-top: 12px;">
+      <strong>Tags multiples</strong> : <code>:sha</code> pour la traçabilité, <code>:latest</code> pour les utilisateurs. En prod, on ajoute aussi <code>:v1.2.3</code> sur tag git.
+    </div>
+  </div>
+
+  <!-- J3.14 — Rétro J3 -->
+  <div class="slide hero" data-day="3"
+       data-note="Rétro : Acme a maintenant PR, CI, Docker et GHCR. Demain matin on ouvre vers les briques autour : secrets, environments, Terraform, monitoring, Kubernetes.">
+    <div class="slide-number">J3.14</div>
+    <div class="slide-title accent">Rétro Jour 3</div>
+    <p class="slide-subtitle">CI propre, image Docker, package GHCR.</p>
+
+    <div style="margin-top: 24px;">
+      <span class="tag cyan">Workflow YAML</span>
+      <span class="tag blue">Triggers</span>
+      <span class="tag emerald">Matrix &amp; cache</span>
+      <span class="tag amber">Docker &amp; GHCR</span>
+    </div>
+
+  </div>
+
+  <!-- J4.02 — Secrets -->
+  <div class="slide" data-day="4"
+       data-note="Niveaux : repo / org / environment. Insister : un secret JAMAIS dans le code, JAMAIS commit. GitHub les masque dans les logs mais c'est du best-effort.">
+    <div class="slide-number">J4.02</div>
+    <div class="slide-title">Secrets — gestion</div>
+    <p class="slide-subtitle">3 niveaux, des bonnes pratiques, et OIDC pour les pros</p>
+
+    <table style="margin-top: 16px;">
+      <tr><th>Niveau</th><th>Portée</th><th>Cas d'usage</th></tr>
+      <tr><td><strong>Repo</strong></td><td>Tous les workflows du repo</td><td>API key spécifique à ce projet</td></tr>
+      <tr><td><strong>Organization</strong></td><td>Plusieurs repos (avec restrictions)</td><td>Token DockerHub partagé</td></tr>
+      <tr><td><strong>Environment</strong></td><td>Workflow + environment précis</td><td>Cred de prod (avec approval)</td></tr>
+    </table>
+
+    <pre style="margin-top: 16px;"><code>steps:
+  - run: deploy
+    env:
+      DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    # auto-généré</code></pre>
+
+    <div class="info-box danger" style="margin-top: 12px;">
+      <strong>À ne jamais faire</strong> : <code>echo ${{ secrets.X }}</code>, ni hardcoder dans le YAML, ni stocker dans des variables qui leakent dans les logs (URL, args CLI…).
+    </div>
+
+    <div class="info-box tip" style="margin-top: 12px;">
+      <strong>OIDC</strong> (niveau pro) : pas de secret long-lived. GitHub signe un token court qui s'échange contre des creds AWS/GCP/Azure. À voir après ce cours.
+    </div>
+  </div>
+
+  <!-- J4.03 — Environments -->
+  <div class="slide" data-day="4"
+       data-note="Environments = la fonctionnalité GitHub qui permet d'avoir une étape gated 'prod'. Approval manuel, secrets isolés, deployment history. Très puissant."
+       data-exercise="../exercises/05-deploy-secrets.md">
+    <div class="slide-number">J4.03</div>
+    <div class="slide-title">Environments &amp; approvals</div>
+    <p class="slide-subtitle">Modéliser staging / prod dans GitHub avec porte de validation</p>
+
+    <pre><code>jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - run: ./deploy.sh staging
+        env:
+          DEPLOY_KEY: ${{ secrets.STAGING_KEY }}
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    environment:
+      name: production
+      url: https://app.example.com
+    steps:
+      - run: ./deploy.sh prod
+        env:
+          DEPLOY_KEY: ${{ secrets.PROD_KEY }}</code></pre>
+
+    <div class="two-cols" style="margin-top: 12px;">
+      <div class="card cyan">
+        <h4>Settings de l'environment</h4>
+        <ul>
+          <li><strong>Required reviewers</strong> — approval manuel</li>
+          <li><strong>Wait timer</strong> — délai avant exécution</li>
+          <li><strong>Deployment branches</strong> — uniquement <code>main</code></li>
+          <li><strong>Secrets isolés</strong> — pas accessibles aux autres envs</li>
+        </ul>
+      </div>
+      <div class="card emerald">
+        <h4>Bénéfices</h4>
+        <ul>
+          <li>Historique des déploiements lisible</li>
+          <li>Approval traçable (qui a validé quand)</li>
+          <li>Rollback rapide via redeploy précédent</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- J4.04 — Déploiement réel -->
+  <div class="slide" data-day="4"
+       data-note="Démo ou ouverture rapide. Le pattern à retenir : hook de déploiement + secret + smoke test. Ne pas transformer en gros TP si le projet final doit démarrer."
+       data-exercise="../exercises/05-deploy-secrets.md">
+    <div class="slide-number">J4.04</div>
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap;">
+      <img src="https://cdn.simpleicons.org/render/46e3b7" alt="Render" width="40" height="40">
+      <img src="https://cdn.simpleicons.org/flydotio/8b5cf6" alt="Fly.io" width="40" height="40">
+      <img src="https://cdn.simpleicons.org/railway/0b0d0e" alt="Railway" width="40" height="40" style="background: #fff; padding: 4px; border-radius: 6px;">
+      <div class="slide-title" style="margin-bottom: 0;">Cas d'usage : déploiement réel</div>
+    </div>
+    <p class="slide-subtitle">Render / Fly.io / Railway, gratuit, déclenché au merge sur main</p>
+
+    <pre><code>name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Trigger Render deploy
+        run: |
+          curl -fsSL -X POST \
+            -H "Authorization: Bearer $RENDER_TOKEN" \
+            "https://api.render.com/deploy/srv-xxxxx?key=$DEPLOY_HOOK"
+        env:
+          RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }}
+          DEPLOY_HOOK: ${{ secrets.RENDER_HOOK }}
+
+      - name: Smoke test
+        run: |
+          for i in {1..30}; do
+            curl -fsSL https://app.example.com/health &amp;&amp; exit 0
+            sleep 5
+          done
+          exit 1</code></pre>
+
+    <div class="info-box success" style="margin-top: 12px;">
+      <strong>Smoke test post-deploy</strong> : indispensable. Sinon le job est vert même si l'app est cassée. <code>/health</code> doit répondre 200 dans les X secondes après deploy.
+    </div>
+  </div>
+
+  <!-- J4.05 — Ouverture écosystème -->
+  <div class="slide" data-day="4"
+       data-note="Ouverture rapide : situer les briques, pas les pratiquer. Objectif Systems/Réseau : savoir où chaque outil se branche dans le pipeline.">
+    <div class="slide-number">J4.05</div>
+    <div class="slide-title">Après la CI/CD : ce qui se branche autour</div>
+    <p class="slide-subtitle">Infrastructure, déploiement, supervision, gouvernance</p>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div class="card violet">
+        <h4>Terraform / OpenTofu</h4>
+        <p>Décrire et provisionner l'infrastructure : réseaux, machines, bases, permissions.</p>
+        <p style="margin-top:8px;"><span class="tag violet">avant deploy</span></p>
+      </div>
+      <div class="card amber">
+        <h4>Kubernetes / GitOps</h4>
+        <p>Orchestrer les conteneurs et synchroniser l'état voulu depuis Git.</p>
+        <p style="margin-top:8px;"><span class="tag amber">deploy</span></p>
+      </div>
+    </div>
+
+    <div class="two-cols" style="margin-top: 12px;">
+      <div class="card rose">
+        <h4>Prometheus / Grafana</h4>
+        <p>Mesurer l'état du système, alerter, suivre les SLO et les incidents.</p>
+        <p style="margin-top:8px;"><span class="tag rose">après deploy</span></p>
+      </div>
+      <div class="card blue">
+        <h4>Ansible / configuration</h4>
+        <p>Installer et configurer des serveurs quand l'environnement n'est pas entièrement managé.</p>
+        <p style="margin-top:8px;"><span class="tag blue">ops</span></p>
+      </div>
+    </div>
+
+    <div class="info-box tip" style="margin-top: 16px;">
+      <strong>Message clé</strong> : la CI/CD ne remplace pas l'infra, l'observabilité ou les runbooks. Elle les relie.
+    </div>
+  </div>
+
+  <!-- J4.06 — Sécurité supply chain -->
+  <div class="slide" data-day="4"
+       data-note="La supply chain est devenue un sujet majeur (SolarWinds, log4j, xz utils). 4 réflexes à avoir.">
+    <div class="slide-number">J4.06</div>
+    <div class="slide-title">Sécurité supply chain</div>
+    <p class="slide-subtitle">Les 4 réflexes pour ne pas être le prochain incident</p>
+
+    <div class="two-cols" style="margin-top: 16px;">
+      <div class="card cyan">
+        <h4>1. Pin actions par SHA</h4>
+<pre style="margin-top: 8px;"><code>- uses: actions/checkout@8e5e7e5  # SHA</code></pre>
+        <p style="font-size: 0.9em; margin-top: 8px;">Pas <code>@main</code>, pas même <code>@v4</code> en prod : un mainteneur compromis pousse ce qu'il veut.</p>
+      </div>
+      <div class="card blue">
+        <h4>2. OIDC pour le cloud</h4>
+        <p>Plus de secret AWS long-lived. Token court signé par GitHub, échangé via STS.</p>
+      </div>
+    </div>
+
+    <div class="two-cols" style="margin-top: 12px;">
+      <div class="card emerald">
+        <h4>3. Dependabot</h4>
+        <p>PR auto pour les updates de deps et d'actions. Lecture obligatoire des CVE.</p>
+      </div>
+      <div class="card amber">
+        <h4>4. Scan deps + image</h4>
+        <p><code>npm audit</code>, <code>trivy image</code>, <code>github/codeql-action</code>. À ajouter dans le pipeline.</p>
+      </div>
+    </div>
+
+    <div class="info-box danger" style="margin-top: 16px;">
+      <strong>Incident xz utils (mars 2024)</strong> : un mainteneur a injecté une backdoor dans une lib utilisée partout. Détecté par hasard. Pin + scan = réflexes survie.
+    </div>
+  </div>
+
+  <!-- J4.07 — Projet final -->
+  <div class="slide" data-day="4"
+       data-note="Projet final : audit LoueUneChevre.com. Ils réutilisent Acme comme grille, mais sur un cas plus riche. Ne pas les laisser partir en développement applicatif."
+       data-exercise="../exercises/06-projet-final.md">
+    <div class="slide-number">J4.07</div>
+    <div class="slide-title">Projet final — audit LoueUneChevre.com</div>
+    <p class="slide-subtitle">Audit, pipeline cible, roadmap — en binôme</p>
+
+    <div class="pipeline" style="margin-top: 24px; flex-wrap: wrap;">
+      <div class="stage cyan">Audit<span class="stage-label">3 voies</span></div>
+      <div class="connector"></div>
+      <div class="stage cyan">CALMS<span class="stage-label">score</span></div>
+      <div class="connector"></div>
+      <div class="stage blue">DORA<span class="stage-label">mesure</span></div>
+      <div class="connector"></div>
+      <div class="stage blue">Risques<span class="stage-label">priorités</span></div>
+    </div>
+    <div class="pipeline" style="margin-top: 12px; flex-wrap: wrap;">
+      <div class="stage emerald">Pipeline cible<span class="stage-label">schéma</span></div>
+      <div class="connector"></div>
+      <div class="stage amber">Roadmap<span class="stage-label">30/60/90</span></div>
+      <div class="connector"></div>
+      <div class="stage rose">Preuve<span class="stage-label">PR/doc</span></div>
+      <div class="connector"></div>
+      <div class="stage rose">Démo<span class="stage-label">5-7 min</span></div>
+    </div>
+
+    <div class="info-box success" style="margin-top: 16px;">
+      <strong>Critères de succès</strong> : diagnostic clair, pipeline réaliste, priorités justifiées, vocabulaire DevOps correct.
+    </div>
+
+    <div class="info-box tip" style="margin-top: 12px;">
+      <strong>Preuve technique</strong> : une PR de documentation ou de workflow suffit si le temps est court.
+    </div>
+  </div>
+
+  <!-- J4.08 — Bilan & ouverture -->
+  <div class="slide hero" data-day="4"
+       data-note="Closing. Récapituler les 4 jours. Encourager : l'écosystème est immense, vous avez la base. Indiquer où aller ensuite (IaC, K8s, observabilité).">
+    <div class="slide-number">J4.08</div>
+    <div class="slide-title accent">Bilan &amp; ouverture</div>
+    <p class="slide-subtitle">4 jours : démarche, PR, CI, Docker, audit.</p>
+
+    <div class="three-cols" style="margin-top: 24px;">
+      <div class="card cyan">
+        <h4>Ce que vous savez faire</h4>
+        <ul>
+          <li>Expliquer la démarche DevOps</li>
+          <li>Workflow PR avec branch protection</li>
+          <li>Écrire un workflow GitHub Actions</li>
+          <li>Build &amp; push une image Docker</li>
+          <li>Auditer un projet et proposer un pipeline</li>
+        </ul>
+      </div>
+      <div class="card blue">
+        <h4>À explorer ensuite</h4>
+        <ul>
+          <li><strong>IaC</strong> — Terraform, OpenTofu</li>
+          <li><strong>Conteneurs</strong> — Docker avancé, Kubernetes</li>
+          <li><strong>Observabilité</strong> — Prometheus, Grafana, OpenTelemetry</li>
+          <li><strong>GitOps</strong> — ArgoCD, Flux</li>
+          <li><strong>DevSecOps</strong> — SAST, DAST, OPA</li>
+        </ul>
+      </div>
+      <div class="card emerald">
+        <h4>Ressources</h4>
+        <ul>
+          <li><em>The Phoenix Project</em> — Gene Kim</li>
+          <li><em>Accelerate</em> — Forsgren, Humble, Kim</li>
+          <li>State of DevOps Report (DORA)</li>
+          <li>GitHub Actions docs officielles</li>
+          <li>CNCF landscape</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
 </div><!-- /slides-wrapper -->
+
+<!-- Speaker Notes -->
+<div class="speaker-notes" id="speakerNotes">
+  <h4>Notes orateur</h4>
+  <p id="notesText"></p>
+</div>
 
 <!-- TP Panel -->
 <div class="tp-panel" id="tpPanel">
@@ -1821,6 +2204,7 @@ resource "google_compute_instance" "web" {
 <!-- Keyboard hints -->
 <div class="keyboard-hints">
   <span><span class="key">&larr;</span><span class="key">&rarr;</span> navigation</span>
+  <span><span class="key">N</span> notes</span>
   <span><span class="key">T</span> TP</span>
   <span><span class="key">F</span> plein écran</span>
   <span><span class="key">A</span> aide</span>
@@ -1830,6 +2214,7 @@ resource "google_compute_instance" "web" {
   // State
   let currentDay = 1;
   let currentSlideIndex = 0;
+  let notesVisible = false;
   let tpVisible = false;
   let assistMode = false;
   let currentExercisePath = '';
@@ -1842,9 +2227,12 @@ resource "google_compute_instance" "web" {
   const dayBtns = document.querySelectorAll('.day-btn');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
+  const notesBtn = document.getElementById('notesBtn');
   const fullscreenBtn = document.getElementById('fullscreenBtn');
   const menuBtn = document.getElementById('menuBtn');
   const slideMenu = document.getElementById('slideMenu');
+  const speakerNotes = document.getElementById('speakerNotes');
+  const notesText = document.getElementById('notesText');
   const progressBar = document.getElementById('progressBar');
   const currentSlideEl = document.getElementById('currentSlide');
   const totalSlidesEl = document.getElementById('totalSlides');
@@ -1908,6 +2296,11 @@ resource "google_compute_instance" "web" {
         slide.classList.add('prev');
       }
     });
+
+    const currentSlide = filteredSlides[currentSlideIndex];
+    const note = currentSlide?.dataset.note || '';
+    notesText.textContent = note || 'Aucune note pour cette slide.';
+
     const progress = ((currentSlideIndex + 1) / filteredSlides.length) * 100;
     progressBar.style.width = `${progress}%`;
 
@@ -1946,10 +2339,23 @@ resource "google_compute_instance" "web" {
     }
   }
 
+  // Toggle notes
+  function toggleNotes() {
+    notesVisible = !notesVisible;
+    speakerNotes.classList.toggle('visible', notesVisible);
+    notesBtn.classList.toggle('active', notesVisible);
+  }
+
   function setTpVisible(visible) {
     tpVisible = visible;
     tpPanel.classList.toggle('visible', tpVisible);
     tpBtn.classList.toggle('active', tpVisible);
+
+    if (tpVisible && notesVisible) {
+      notesVisible = false;
+      speakerNotes.classList.remove('visible');
+      notesBtn.classList.remove('active');
+    }
   }
 
   function toggleTp() {
@@ -2032,7 +2438,7 @@ resource "google_compute_instance" "web" {
       }
 
       if (line.trim() === '') {
-        closeList();
+        // keep lists open across blank lines so 1. 2. 3. doesn't restart
         continue;
       }
 
@@ -2045,14 +2451,14 @@ resource "google_compute_instance" "web" {
         continue;
       }
 
-      const orderedMatch = line.match(/^\d+\.\s+(.*)$/);
+      const orderedMatch = line.match(/^(\d+)\.\s+(.*)$/);
       if (orderedMatch) {
         if (listType !== 'ol') {
           closeList();
           listType = 'ol';
-          html += '<ol>';
+          html += `<ol start="${orderedMatch[1]}">`;
         }
-        html += `<li>${escapeHtml(orderedMatch[1])}</li>`;
+        html += `<li>${escapeHtml(orderedMatch[2])}</li>`;
         continue;
       }
 
@@ -2152,6 +2558,7 @@ resource "google_compute_instance" "web" {
 
   prevBtn.addEventListener('click', prevSlide);
   nextBtn.addEventListener('click', nextSlide);
+  notesBtn.addEventListener('click', toggleNotes);
   fullscreenBtn.addEventListener('click', toggleFullscreen);
   tpBtn.addEventListener('click', toggleTp);
   assistBtn.addEventListener('click', toggleAssist);
@@ -2181,6 +2588,7 @@ resource "google_compute_instance" "web" {
         e.preventDefault();
         prevSlide();
         break;
+      case 'n': case 'N': toggleNotes(); break;
       case 'f': case 'F': toggleFullscreen(); break;
       case 't': case 'T': toggleTp(); break;
       case 'a': case 'A': toggleAssist(); break;
@@ -2188,6 +2596,7 @@ resource "google_compute_instance" "web" {
       case '1': filterSlidesByDay(1); break;
       case '2': filterSlidesByDay(2); break;
       case '3': filterSlidesByDay(3); break;
+      case '4': filterSlidesByDay(4); break;
     }
   });
 
